@@ -10,6 +10,7 @@ public class Players {
 	
 	public Players() {
 		super();
+		//A player has 5 boat at the begining
 		this.boatAlive = 5;
 		myBoats.add(new Boat(5,"Porte-avion"));
 		myBoats.add(new Boat(4,"Croiseur"));

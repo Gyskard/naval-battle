@@ -16,14 +16,20 @@ public class Graphic_Naval_Board extends JFrame {
 	  
 	     public Graphic_Naval_Board(int size, int width, int height) throws HeadlessException {
 			super();
+			
+			//Initiate 
 			this.size = size;
 			this.width = width;
 			this.height = height;
 			myCells = new Board_Cells[size][size];
 	        setSize(width, height);
 	        setTitle("Naval Board Game");
-	        setBackground(Color.cyan);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        //Dosn't work
+	        setBackground(Color.cyan);
+	        
+	        
+	        //Show the frame
 	        setVisible(true);
 	        
 		}
@@ -35,12 +41,13 @@ public class Graphic_Naval_Board extends JFrame {
 	     public void paint(Graphics g) 
 	     {
 			super.paint(g);
-			g.drawRect(75,75 ,((width+200)/2)+50, ((height+200)/2)+50);
+			g.drawRect(75,75 ,((width)/2)+250, ((height)/2)+50);
 	    	 for (int i=0 ; i<size;i++)
 	    	 {
 		    	 for (int j=0 ; j<size;j++)
 		    	 {
-		    		 myCells[i][j] = new Board_Cells(i*((200+width)/(2*size)) +100, j*((200+height)/(2*size)) +100,width/(2*size), height/(2*size));
+		    		 //For each cells paint it on the frame
+		    		 myCells[i][j] = new Board_Cells(i*((width)/(2*size)) +100, j*((height)/(2*size)) +100,width/(2*size), height/(2*size));
 		    		 myCells[i][j].paint(g);
 		    	 }
 	    	 }

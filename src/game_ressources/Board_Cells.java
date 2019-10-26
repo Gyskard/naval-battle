@@ -27,9 +27,7 @@ public class Board_Cells extends Rectangle{
 
     public void paint(Graphics g)
 	{
-        g.drawRoundRect(_posX,_posY,_width,_height,15,15);
-
-		
+        g.drawRect(_posX,_posY,_width,_height);
 	}
 
 

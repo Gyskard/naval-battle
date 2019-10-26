@@ -6,9 +6,10 @@ public class Naval_Main {
 
 	public static void main(String[] args) {
 		
-		 Color c = new Color(0,206,209);
-	   Graphic_Naval_Board m = new Graphic_Naval_Board(20,1000,1000);
-	   m.setBackground(Color.cyan);
+		//Generate a 1000 x 1000 sized frame with 10 x 10 case in it
+	   Graphic_Naval_Board m = new Graphic_Naval_Board(10,1000,1000);
+	   
+	   //repain call the function paint by default but it's more usable than paint
 	   m.repaint(); 
 	}
 	

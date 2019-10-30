@@ -30,7 +30,7 @@ public class Board_Cells extends Rectangle{
         g.drawRect(_posX,_posY,_width,_height);
 	}
 
-
-
+	public boolean getState() {return state;}
+	public void setState(boolean state) {this.state = state;}
 	
 }

@@ -21,5 +21,7 @@ public class Players {
 		
 	}
 
-	
+	public List<Boat> getMyBoats() {
+		return myBoats;
+	}
 }

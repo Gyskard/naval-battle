@@ -3,10 +3,11 @@ package game_ressources;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
 
 public class Naval_Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		//Get the size of the screen and make it scale
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -14,7 +15,8 @@ public class Naval_Main {
 		int height = (int)(screenSize.getHeight()*0.45);
 		
 		
-		Graphical_Naval_Menu Menu = new Graphical_Naval_Menu(width, height);
+		Graphical_Naval_Menu Menu = new Graphical_Naval_Menu();
+		Menu.setVisible(true);
 		Menu.repaint();
 		//Generate a 1000 x 1000 sized frame with 10 x 10 case in it
 		Human_Player ThePlayer = new  Human_Player(10);

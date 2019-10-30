@@ -28,8 +28,7 @@ public class Graphic_Naval_Board extends JFrame {
 	        setSize(width, height);
 	        setTitle("Naval Board Game");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        //Dosn't work
-	        setBackground(Color.cyan);
+	        getContentPane().setBackground(Color.CYAN);
 	        
 	        
 	        //Show the frame

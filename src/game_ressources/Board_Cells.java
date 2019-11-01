@@ -11,7 +11,7 @@ public class Board_Cells extends Rectangle{
 	private int _width;
 	private int _height;
 	private boolean state;
-	
+
 
 
 
@@ -21,7 +21,7 @@ public class Board_Cells extends Rectangle{
 		this._posY = posY;
 		this._width = width;
 		this._height = height;
-		this.state = true;
+		this.state = false;
 	}
 
 

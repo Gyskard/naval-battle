@@ -1,6 +1,8 @@
 package game_ressources;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Score {
 
@@ -67,7 +69,7 @@ public class Score {
     }
 
     //---GET THE PLAYER'S SCORE---
-    private int getScore(String pseudo) {
+    public int getScore(String pseudo) {
         BufferedReader reader;
         int result = 0;
         try {
@@ -91,10 +93,35 @@ public class Score {
         return result;
     }
 
+    //---GET THE PLAYER'S SCORE---
+    public String[][] getTopScore(int top) {
+        String[][] topScore;
+        String[][] scores = getAllScores();
+        List<String> pseudoTraited =  new ArrayList<String>();
+        if(scores.length < top) {
+            top = scores.length;
+        }
+        topScore = new String[top][2];
+        for(int i = 0; i < top; i++) {
+            int scoreMax = 0;
+            String pseudo = "";
+            for(String[] lineInFile : scores) {
+                if (scoreMax < Integer.parseInt(lineInFile[1]) && !(pseudoTraited.contains(lineInFile[0]))) {
+                    scoreMax = Integer.parseInt(lineInFile[1]);
+                    pseudo = lineInFile[0];
+                }
+            }
+            topScore[i][0] = pseudo;
+            topScore[i][1] = String.valueOf(scoreMax);
+            pseudoTraited.add(pseudo);
+        }
+        return topScore;
+    }
+
     //---RECORD OF THE PLAYER'S NEW SCORE---
     //If the new score is higher than the recorded score : update the recorded score and return True.
     //If the new score is less than or equivalent to the recorded score : not update the recorded score and return False.
-    private boolean setScore(String pseudo, int score) throws IOException {
+    public boolean setScore(String pseudo, int score) throws IOException {
         //Recovering old scores
         String[][] scores = getAllScores();
         if(isNewScore(pseudo, score, scores)) {

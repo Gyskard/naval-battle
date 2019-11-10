@@ -3,9 +3,12 @@ package game_ressources;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 public class Players {
 	protected int boatAlive;
@@ -16,24 +19,32 @@ public class Players {
 		super();
 		//A player has 5 boat at the begining
 		this.boatAlive = 5;
-		myBoats.add(new Boat(5,"Porte-avion"));
-		myBoats.add(new Boat(4,"Croiseur"));
-		myBoats.add(new Boat(3,"Contre-Torpilleur"));
-		myBoats.add(new Boat(3,"Sous-Marin"));
-		myBoats.add(new Boat(2,"Torpilleur"));
+		myBoats.add(new Boat(5,"Porte-avion","../img/PorteAvion.png"));
+		myBoats.add(new Boat(4,"Croiseur","../img/Croiseur.png"));
+		myBoats.add(new Boat(3,"Contre-Torpilleur","../img/ContreTorpilleur.png"));
+		myBoats.add(new Boat(3,"Sous-Marin","../img/SousMarin.png"));
+		myBoats.add(new Boat(2,"Destroyer","../img/Destroyer.png"));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int)(screenSize.getWidth()*0.6);
 		int height = (int)(screenSize.getHeight()*0.9);
-		GameBoard = new Graphic_Naval_Board(size,width,height);
+		Players me = this;
 		
+		SwingUtilities.invokeLater(new Runnable(){ 
+			public void run() {
+				Graphic_Naval_Board Menu;
+				GameBoard = new Graphic_Naval_Board(size,width,height,me);
+				GameBoard.setVisible(true);
+			}
+		} );
 		
 	}
-
 	public List<Boat> getMyBoats() { return myBoats; }
 	public Graphic_Naval_Board getGameBoard() { return GameBoard; }
-
-
+	
+	public void displayGameBoard() {
+		GameBoard.setVisible(true);
+	}
 
 	public void randomBoatPositioning() {
 		Iterator<Boat> iter = myBoats.iterator();

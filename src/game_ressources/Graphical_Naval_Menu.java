@@ -79,7 +79,20 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         Object source=e.getSource();
-
+        if(source==butt1)
+        {
+        	
+    		//Generate a 1000 x 1000 sized frame with 10 x 10 case in it
+    		Human_Player ThePlayer = new  Human_Player(10);
+    		//ThePlayer.GameBoard.repaint();
+    		dispose();
+    	   //repain call the function paint by default but it's more usable than paint
+        }
+        else if(source==butt2)
+        {
+        	dispose();
+        	System.exit(0);
+        }
 
     }
 }

@@ -1,9 +1,11 @@
 package game_ressources;
 
 import javax.swing.*;
-import java.awt.*;
 
-import javax.swing.JPanel;
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Graphic_Naval_Board extends JFrame {
 
@@ -12,27 +14,71 @@ public class Graphic_Naval_Board extends JFrame {
 	 private int width; 
 	 private int height; 
 	 private Board_Cells myCells[][];
-
+	 private Players myPlayer;
 	  
-	     public Graphic_Naval_Board(int size, int width, int height) throws HeadlessException {
+	     public Graphic_Naval_Board(int size, int width, int height,Players myPlayer) throws HeadlessException {
 			super();
-			
 			//Initiate 
 			this.size = size;
 			this.width = width;
 			this.height = height;
 			myCells = new Board_Cells[size][size];
+			this.myPlayer=myPlayer;
+			build();
+	     }
+	     private void build() 
+	     {
 	        setSize(width, height);
 	        setTitle("Naval Board Game");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        getContentPane().setBackground(Color.CYAN);
-	        initMyCells();
 	        
-	        //Show the frame
+	        setContentPane(buildContentPanel());
 	        setVisible(true);
 	        
+	     }
+	    
+	     private JPanel buildContentPanel()
+	     {
+	    	List<Boat> myBoats = myPlayer.getMyBoats();
+	    	
+	    	List<JLabel> myImage = new ArrayList<JLabel>();
+	    	JLabel BackGround_Grid =new JLabel();
+	    	JPanel panel= new JPanel();
+	        //initMyCells();
+	    	
+	    	BackGround_Grid.setIcon(new ImageIcon("../img/oceangrid.png"));
+	        Dimension size = BackGround_Grid.getPreferredSize();
+	        BackGround_Grid.setBounds(100, 100, size.width/2, size.height/2); 
+	    	
+	    	
+	    	for (Boat B : myBoats)
+	    	{
+	    		myImage.add(DisplayImage(B.getImg_path()));
+	    	}
+	    	for(JLabel I : myImage)
+	    	{
+	    		 panel.add(I);
+	    	}
+	       
+	        pack();
+	        
+	        return  panel;
+	        
+	        
 		 }
+	     
+	     
+	     public JLabel DisplayImage(String img) {  
 
+	         JLabel label = new JLabel();  
+	         label.setIcon(new ImageIcon(img));
+	         Dimension size = label.getPreferredSize();
+	         label.setBounds(100, 100, size.width, size.height); 
+	         return label;
+	     }  
+	     
+	     
 		 private void initMyCells() {
 			 for (int i=0 ; i<size;i++)
 			 {
@@ -50,6 +96,7 @@ public class Graphic_Naval_Board extends JFrame {
 
 		 public int getIntSize() { return size; }
 
+		 /*
 		 @Override
 	     public void paint(Graphics g) 
 	     {
@@ -65,5 +112,7 @@ public class Graphic_Naval_Board extends JFrame {
 		    	 }
 	    	 }
 	     }
+		 
+		*/
 
 }

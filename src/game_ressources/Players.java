@@ -48,7 +48,7 @@ public class Players {
 
 	public void randomBoatPositioning() {
 		Iterator<Boat> iter = myBoats.iterator();
-		int size = GameBoard.getIntSize(), boatSize, rndNumber1, rndNumber2, rndDirection, direction1, direction2;;
+		int size = GameBoard.getIntSize(), boatSize, rndNumber1, rndNumber2, rndDirection, direction1, direction2;
 		Board_Cells myCells[][] = GameBoard.getMyCells();
 		boolean spaceAvailable, outOfBoard;
 		Boat boat;
@@ -58,13 +58,15 @@ public class Players {
 			boatSize = boat.getSize();
 
 			spaceAvailable = false;
-			while(spaceAvailable == false){
+			while(!spaceAvailable){
 				do{
 					// rndNumber = [0; size]
 					rndNumber1 = (int) (Math.random() * (size));
 					rndNumber2 = (int) (Math.random() * (size));
 					// rndDirection = [0; 3]
 					rndDirection = (int) (Math.random() * 4);
+					direction1 = 0;
+					direction2 = 0;
 					switch (rndDirection){
 						case 0:
 							direction1 = 1;
@@ -83,32 +85,28 @@ public class Players {
 							direction2 = -1;
 							break;
 						default:
-							direction1 = 1;
-							direction2 = 0;
 							break;
 					}
 
-
 					outOfBoard = false;
-					if((rndNumber1 + boatSize*direction1 > size) || (rndNumber1 + boatSize*direction1 < 0)
-							|| (rndNumber2 + boatSize*direction2 > size) || (rndNumber2 + boatSize*direction2 < 0)){
+					if((rndNumber1 + boatSize*direction1 > size) || (rndNumber1 + boatSize*direction1 < 0) || (rndNumber2 + boatSize*direction2 > size) || (rndNumber2 + boatSize*direction2 < 0)) {
 						outOfBoard = true;
 					}
 
-				} while(outOfBoard == true);
+				} while(outOfBoard);
 
 
 
 				spaceAvailable = true;
 				for(int i=0; i<boatSize; i++){
-					if((myCells[rndNumber1 + i*direction1][rndNumber2 + i*direction2].getState()) == true)
+					if((myCells[rndNumber1 + i * direction1][rndNumber2 + i * direction2].getState()))
 					{
 						spaceAvailable = false;
 						break;
 					}
 				}
 
-				if(spaceAvailable == true){
+				if(spaceAvailable){
 					for(int i=0; i<boat.getSize(); i++){
 						myCells[rndNumber1 + i*direction1][rndNumber2 + i*direction2].setState(true);
 					}

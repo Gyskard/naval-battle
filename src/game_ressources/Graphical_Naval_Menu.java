@@ -1,7 +1,6 @@
 package game_ressources;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +21,7 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
         repaint();
 
         setTitle("Naval battle game");
-        setSize(500,250);
+        setSize(500,400);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,13 +53,23 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
         butt2.addActionListener(this);
         secondCenterPart.add(butt2);
 
+        //thirdCenterPart
+        JPanel thirdCenterPart = new JPanel();
+        String[][] topScore = new Score().getTopScore(3);
+        String htmlPart1 = "<p style=\"text-align:center; text-decoration: underline;\">Top 3</p>";
+        String htmlPart2 = "<p style=\"text-align:center; font-size:0.85em;\">" + topScore[0][0] + " - " + topScore[0][1] + "</p>";
+        String htmlPart3 = "<p style=\"text-align:center; font-size:0.85em;\">" + topScore[1][0] + " - " + topScore[1][1] + "</p>";
+        String htmlPart4 = "<p style=\"text-align:center; font-size:0.85em;\">" + topScore[2][0] + " - " + topScore[2][1] + "</p>";
+        JLabel top = new JLabel("<html>" + htmlPart1 + "<br>" + htmlPart2 + "<br>"+ htmlPart3 + "<br>" + htmlPart4 + "</html>");
+        top.setFont(new Font("Courier", Font.BOLD,20));
+        thirdCenterPart.add(top);
+
         //centerPart
         JPanel centerPart = new JPanel();
         centerPart.setLayout(new BoxLayout(centerPart, BoxLayout.Y_AXIS));
-        Border padding = BorderFactory.createEmptyBorder(20, 0, 20, 0);
-        centerPart.setBorder(padding);
         centerPart.add(firstCenterPart);
         centerPart.add(secondCenterPart);
+        centerPart.add(thirdCenterPart);
 
         //southPart
         JPanel southPart = new JPanel();
@@ -78,12 +87,8 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
     }
 
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        System.out.println("test");
 
         Object source=e.getSource();
         if(source==butt1)

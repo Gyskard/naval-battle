@@ -1,8 +1,11 @@
 package game_ressources;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +34,6 @@ public class Graphic_Naval_Board extends JFrame {
 	        setSize(width, height);
 	        setTitle("Naval Board Game");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        getContentPane().setBackground(Color.CYAN);
-	        
 	        setContentPane(buildContentPanel());
 	        setVisible(true);
 	        
@@ -47,21 +48,22 @@ public class Graphic_Naval_Board extends JFrame {
 	    	JPanel panel= new JPanel();
 	        //initMyCells();
 	    	
-	    	BackGround_Grid.setIcon(new ImageIcon("../img/oceangrid.png"));
+	    	BackGround_Grid.setIcon(new ImageIcon("./img/oceangrid.png"));
 	        Dimension size = BackGround_Grid.getPreferredSize();
-	        BackGround_Grid.setBounds(100, 100, size.width/2, size.height/2); 
+	        BackGround_Grid.setBounds(200, 100, size.width*2, size.height*2); 
 	    	
-	    	
+	    	panel.add(BackGround_Grid,BorderLayout.WEST);
 	    	for (Boat B : myBoats)
 	    	{
 	    		myImage.add(DisplayImage(B.getImg_path()));
 	    	}
 	    	for(JLabel I : myImage)
 	    	{
-	    		 panel.add(I);
+	    		 panel.add(I,BorderLayout.EAST);
 	    	}
+
 	       
-	        pack();
+	        //pack();
 	        
 	        return  panel;
 	        
@@ -71,10 +73,12 @@ public class Graphic_Naval_Board extends JFrame {
 	     
 	     public JLabel DisplayImage(String img) {  
 
+
+	    	 
 	         JLabel label = new JLabel();  
 	         label.setIcon(new ImageIcon(img));
 	         Dimension size = label.getPreferredSize();
-	         label.setBounds(100, 100, size.width, size.height); 
+	         label.setBounds(100, 100, size.width/2, size.height/2); 
 	         return label;
 	     }  
 	     

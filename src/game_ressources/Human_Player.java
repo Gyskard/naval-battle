@@ -1,8 +1,12 @@
 package game_ressources;
 
 public class Human_Player extends Players {
-	public Human_Player(int size) {
+
+	private String pseudo = "Anonyme";
+
+	public Human_Player(int size, String pseudo) {
 		super(size);
+		this.pseudo = pseudo;
 		// TODO Auto-generated constructor stub
 	}
 

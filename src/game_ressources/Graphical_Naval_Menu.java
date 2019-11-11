@@ -11,6 +11,7 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
     private JButton butt1;
     private JButton butt2;
+    private JTextField textField;
 
     Graphical_Naval_Menu() throws IOException {
         super();
@@ -39,7 +40,9 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
         //firstCenterPart
         JPanel firstCenterPart = new JPanel();
-        JTextField textField = new JTextField("Pseudo", 20);
+        textField = new JTextField("Anonyme", 20);
+        textField.addActionListener(this);
+
         firstCenterPart.add(textField);
 
         //secondCenterPart
@@ -75,15 +78,19 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
     }
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        System.out.println("test");
 
         Object source=e.getSource();
         if(source==butt1)
         {
         	
     		//Generate a 1000 x 1000 sized frame with 10 x 10 case in it
-    		Human_Player ThePlayer = new  Human_Player(10);
+    		Human_Player ThePlayer = new  Human_Player(10, textField.getText());
     		//ThePlayer.GameBoard.repaint();
     		dispose();
     	   //repain call the function paint by default but it's more usable than paint

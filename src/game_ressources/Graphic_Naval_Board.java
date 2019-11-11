@@ -3,7 +3,9 @@ package game_ressources;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -42,28 +44,32 @@ public class Graphic_Naval_Board extends JFrame {
 	     private JPanel buildContentPanel()
 	     {
 	    	List<Boat> myBoats = myPlayer.getMyBoats();
-	    	
 	    	List<JLabel> myImage = new ArrayList<JLabel>();
 	    	JLabel BackGround_Grid =new JLabel();
+	    	
+	    	
 	    	JPanel panel= new JPanel();
 	        //initMyCells();
 	    	
-	    	BackGround_Grid.setIcon(new ImageIcon("./img/oceangrid.png"));
-	        Dimension size = BackGround_Grid.getPreferredSize();
-	        BackGround_Grid.setBounds(200, 100, size.width*2, size.height*2); 
-	    	
-	    	panel.add(BackGround_Grid,BorderLayout.WEST);
+	    	BackGround_Grid.setIcon(new ImageIcon("./img/oceangrid_starter_boat.png"));
+	        
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			int width = (int)(screenSize.getWidth()*0.6);
+			int height = (int)(screenSize.getHeight()*0.9);
+			BackGround_Grid.setSize(width, height);
+			
 	    	for (Boat B : myBoats)
 	    	{
 	    		myImage.add(DisplayImage(B.getImg_path()));
 	    	}
 	    	for(JLabel I : myImage)
 	    	{
-	    		 panel.add(I,BorderLayout.EAST);
+	    		 I.setLocation(500, 60);
+	    		 BackGround_Grid.add(I);
+	    		 
 	    	}
 
-	       
-	        //pack();
+	       panel.add(BackGround_Grid);
 	        
 	        return  panel;
 	        
@@ -72,15 +78,13 @@ public class Graphic_Naval_Board extends JFrame {
 	     
 	     
 	     public JLabel DisplayImage(String img) {  
-
-
-	    	 
 	         JLabel label = new JLabel();  
 	         label.setIcon(new ImageIcon(img));
 	         Dimension size = label.getPreferredSize();
 	         label.setBounds(100, 100, size.width/2, size.height/2); 
 	         return label;
 	     }  
+	     
 	     
 	     
 		 private void initMyCells() {

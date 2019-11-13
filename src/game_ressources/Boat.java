@@ -7,7 +7,10 @@ public class Boat {
 	private boolean state;
 	private String title;
 	private String img_path;
+	private int direction;
 	
+
+
 	public Boat(int size, String title,String img_path) {
 		super();
 		this.img_path=img_path;
@@ -16,6 +19,15 @@ public class Boat {
 		this.state = true;
 		this.title = title;
 	}
+	
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
 	public String getImg_path() {
 		return img_path;
 	}

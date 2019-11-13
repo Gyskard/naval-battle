@@ -20,6 +20,8 @@ public class Graphic_Naval_Board extends JFrame {
 	 private int height; 
 	 private Board_Cells myCells[][];
 	 private Players myPlayer;
+	 
+	 private JLabel BackGround_Grid;
 	  
 	     public Graphic_Naval_Board(int size, int width, int height,Players myPlayer) throws HeadlessException {
 			super();
@@ -45,26 +47,27 @@ public class Graphic_Naval_Board extends JFrame {
 	     {
 	    	List<Boat> myBoats = myPlayer.getMyBoats();
 	    	List<JLabel> myImage = new ArrayList<JLabel>();
-	    	JLabel BackGround_Grid =new JLabel();
-	    	
-	    	
+	    	BackGround_Grid =new JLabel();
 	    	JPanel panel= new JPanel();
 	        //initMyCells();
 	    	
-	    	BackGround_Grid.setIcon(new ImageIcon("./img/oceangrid_starter_boat.png"));
-	        
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			int width = (int)(screenSize.getWidth()*0.6);
-			int height = (int)(screenSize.getHeight()*0.9);
-			BackGround_Grid.setSize(width, height);
+			int width = (int)(this.width*0.99);
+			int height = (int)(this.height*0.6);
+			setSize(this.width,(int)(this.height*0.7));
+			BackGround_Grid.setBounds(0,0,width,height);
+
+	    	ImageIcon GridImg=SetImageSize("./img/oceangrid_starter_boat.png",BackGround_Grid);	    	
+	    	BackGround_Grid.setIcon(GridImg);	
+	    	
+	    	initMyCells();
 			
 	    	for (Boat B : myBoats)
 	    	{
 	    		myImage.add(DisplayImage(B.getImg_path()));
 	    	}
 	    	for(JLabel I : myImage)
-	    	{
-	    		 I.setLocation(500, 60);
+	    	{	    		 
 	    		 BackGround_Grid.add(I);
 	    		 
 	    	}
@@ -73,15 +76,60 @@ public class Graphic_Naval_Board extends JFrame {
 	        
 	        return  panel;
 	        
-	        
 		 }
-	     
+	     ///To Test
+	     //
+	     public void DisplayBoatAtPosition(JLabel LabelBackGround,Boat myBoat,int posX,int posY)
+	     {
+	    	 
+	    	 LabelBackGround.add(DisplayImage(myBoat.getImg_path()));
+	    	 
+	    	 
+	     }
+	     //
+	     public ImageIcon SetImageSize(String path,JLabel myLabeltoScale)
+	     {
+	    	 ImageIcon icon =new ImageIcon(path);
+	    	 Image img=icon.getImage();
+	    	 Image newImg = img.getScaledInstance(myLabeltoScale.getWidth(), myLabeltoScale.getHeight(), Image.SCALE_SMOOTH);
+	    	 ImageIcon newImc=new ImageIcon(newImg);
+	    	 
+	    	 return newImc;
+	     }
 	     
 	     public JLabel DisplayImage(String img) {  
 	         JLabel label = new JLabel();  
-	         label.setIcon(new ImageIcon(img));
-	         Dimension size = label.getPreferredSize();
-	         label.setBounds(100, 100, size.width/2, size.height/2); 
+	         
+	         
+	         
+	         int Iwidth=(int)(BackGround_Grid.getWidth()/22);
+	         int IHeight=(int)(3*BackGround_Grid.getHeight()/11);
+	         int positionx=2*BackGround_Grid.getWidth()/22;
+	         int positiony=2*BackGround_Grid.getHeight()/11;
+	         
+	         label.setBounds(positionx,positiony,Iwidth,IHeight);
+	         label.setIcon(SetImageSize(img,label ));
+	         return label;
+	     }  
+	     public JLabel DisplayImage(String img,int posX,int posY,Boat B) {  
+	         JLabel label = new JLabel();  
+	         
+	         
+	         int positionx = 0;
+	         int positiony = 0;
+	         int Iwidth=(int)myCells[posX][posY].getWidth();
+	         int IHeight=(int)myCells[posX][posY].getWidth();
+	         
+	         if(B.getDirection()==0)
+	         {
+	        	 positionx =posX*BackGround_Grid.getWidth()/22;
+	         }else
+	         {
+	        	 positiony=posY*BackGround_Grid.getHeight()/11;
+	         }
+	         
+	         label.setBounds(positionx,positiony,Iwidth,IHeight);
+	         label.setIcon(SetImageSize(img,label ));
 	         return label;
 	     }  
 	     
@@ -92,8 +140,7 @@ public class Graphic_Naval_Board extends JFrame {
 			 {
 				 for (int j=0 ; j<size;j++)
 				 {
-					 myCells[i][j] = new Board_Cells(i*((width)/(2*size)) +100, j*((height)/(2*size)) +100,width/(2*size), height/(2*size));
-					 myCells[i][j].setState(false);
+					 myCells[i][j]= new Board_Cells(i, j,(int)(BackGround_Grid.getWidth()/22) ,(int)(BackGround_Grid.getHeight()/11));
 				 }
 			 }
 		 }
@@ -104,23 +151,7 @@ public class Graphic_Naval_Board extends JFrame {
 
 		 public int getIntSize() { return size; }
 
-		 /*
-		 @Override
-	     public void paint(Graphics g) 
-	     {
-			super.paint(g);
-			g.drawRect(75,75 ,((width)/2)+250, ((height)/2)+50);
-	    	 for (int i=0 ; i<size;i++)
-	    	 {
-		    	 for (int j=0 ; j<size;j++)
-		    	 {
-		    		 //For each cells paint it on the frame
-		    		 //myCells[i][j] = new Board_Cells(i*((width)/(2*size)) +100, j*((height)/(2*size)) +100,width/(2*size), height/(2*size));
-		    		 myCells[i][j].paint(g);
-		    	 }
-	    	 }
-	     }
-		 
-		*/
+
+		
 
 }

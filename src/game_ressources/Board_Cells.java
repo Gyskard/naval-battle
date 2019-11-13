@@ -24,10 +24,36 @@ public class Board_Cells extends Rectangle{
 		this.state = false;
 	}
 
+	public int get_posX() {
+		return _posX;
+	}
 
-    public void paint(Graphics g)
-	{
-        g.drawRect(_posX,_posY,_width,_height);
+	public void set_posX(int _posX) {
+		this._posX = _posX;
+	}
+
+	public int get_posY() {
+		return _posY;
+	}
+
+	public void set_posY(int _posY) {
+		this._posY = _posY;
+	}
+
+	public int get_width() {
+		return _width;
+	}
+
+	public void set_width(int _width) {
+		this._width = _width;
+	}
+
+	public int get_height() {
+		return _height;
+	}
+
+	public void set_height(int _height) {
+		this._height = _height;
 	}
 
 	public boolean getState() {return state;}

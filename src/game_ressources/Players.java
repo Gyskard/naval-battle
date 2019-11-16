@@ -19,15 +19,15 @@ public class Players {
 		super();
 		//A player has 5 boat at the begining
 		this.boatAlive = 5;
-		myBoats.add(new Boat(5,"Porte-avion","./img/PorteAvion.png"));
-		myBoats.add(new Boat(4,"Croiseur","./img/Croiseur.png"));
-		myBoats.add(new Boat(3,"Contre-Torpilleur","./img/ContreTorpilleur.png"));
-		myBoats.add(new Boat(3,"Sous-Marin","./img/SousMarin.png"));
-		myBoats.add(new Boat(2,"Destroyer","./img/Destroyer.png"));
+		myBoats.add(new Boat(5,"Porte-avion","./img/Vertical_PorteAvion.png", "./img/Horizontal_PorteAvion.png", "./img/Vertical_Explosion_PorteAvion.png", "./img/Horizontal_Explosion_PorteAvion.png"));
+		myBoats.add(new Boat(4,"Croiseur","./img/Vertical_Croiseur.png", "./img/Horizontal_Croiseur.png", "./img/Vertical_Explosion_Croiseur.png", "./img/Horizontal_Explosion_Croiseur.png"));
+		myBoats.add(new Boat(3,"Contre-Torpilleur","./img/Vertical_ContreTorpilleur.png", "./img/Horizontal_ContreTorpilleur.png", "./img/Vertical_Explosion_ContreTorpilleur.png", "./img/Horizontal_Explosion_ContreTorpilleur.png"));
+		myBoats.add(new Boat(3,"Sous-Marin","./img/Vertical_SousMarin.png", "./img/Horizontal_SousMarin.png", "./img/Vertical_Explosion_SousMarin.png", "./img/Horizontal_Explosion_SousMarin.png"));
+		myBoats.add(new Boat(2,"Destroyer","./img/Vertical_Destroyer.png", "./img/Horizontal_Destroyer.png", "./img/Vertical_Explosion_Destroyer.png", "./img/Horizontal_Explosion_Destroyer.png"));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int)(screenSize.getWidth()*0.6);
-		int height = (int)(screenSize.getHeight()*0.9);
+		int width = 957;
+		int height = 468;
 		Players me = this;
 		
 		SwingUtilities.invokeLater(new Runnable(){ 

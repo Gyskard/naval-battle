@@ -39,6 +39,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	     }
 	     private void build() 
 	     {
+
 	        setSize(width, height);
 	        setTitle("Naval Board Game");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,22 +54,23 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	    	List<JLabel> myImage = new ArrayList<JLabel>();
 	    	BackGround_Grid =new JLabel();
 	    	JPanel panel= new JPanel();
-	        //initMyCells();
-	    	
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			int width = (int)(this.width*0.99);
-			int height = (int)(this.height*0.6);
-			setSize(this.width,(int)(this.height*0.7));
-			BackGround_Grid.setBounds(0,0,width,height);
 
-	    	ImageIcon GridImg=SetImageSize("./img/oceangrid_starter_boat.png",BackGround_Grid);	    	
+			//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			//int width = (int)(this.width*0.97);
+			//int height = (int)(this.height*0.6);
+
+			setSize(this.width,this.height);
+			BackGround_Grid.setBounds(0,0, width, height);
+
+	    	ImageIcon GridImg=SetImageSize("./img/oceangrid_starter_boat.png", BackGround_Grid);
 	    	BackGround_Grid.setIcon(GridImg);	
 	    	
 	    	initMyCells();
 			
 	    	for (Boat B : myBoats)
 	    	{
-	    		myImage.add(DisplayImage(B.getImg_path()));
+	    		B.setDirection(0);
+	    		myImage.add(DisplayImage(2,2,B));
 	    	}
 	    	for(JLabel I : myImage)
 	    	{	    		 
@@ -86,7 +88,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	     public void DisplayBoatAtPosition(JLabel LabelBackGround,Boat myBoat,int posX,int posY)
 	     {
 	    	 
-	    	 LabelBackGround.add(DisplayImage(myBoat.getImg_path()));
+	    	 //LabelBackGround.add(DisplayImage(myBoat.getImg_path()));
 	    	 
 	    	 
 	     }
@@ -101,42 +103,31 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	    	 return newImc;
 	     }
 	     
-	     public JLabel DisplayImage(String img) {  
-	         JLabel label = new JLabel();  
-	         
-	         
-	         
-	         int Iwidth=(int)(BackGround_Grid.getWidth()/22);
-	         int IHeight=(int)(5*BackGround_Grid.getHeight()/11);
-	         int positionx=2*BackGround_Grid.getWidth()/22;
-	         int positiony=2*BackGround_Grid.getHeight()/11;
-	         
-	         label.setBounds(positionx,positiony,Iwidth,IHeight);
-	         label.setIcon(SetImageSize(img,label ));
-	         return label;
-	     }  
+
 	     public JLabel DisplayImage(int posX,int posY,Boat B) {  
-	         JLabel label=null;
+	         JLabel label=new JLabel();
 	         
 	         String img_Path;
 	         int positionx = myCells[posX][posY].get_posX();
 	         int positiony = myCells[posX][posY].get_posY();
 	         int Iwidth=(int)myCells[posX][posY].get_width();
-	         int IHeight=(int)myCells[posX][posY].get_height();
+	         int IHeight=(int)B.getSize()*myCells[posX][posY].get_height();
 	         
 	         if(B.getDirection()==0)
 	         {
 	       
-	        	 img_Path=B.getImg_path();
+	        	 img_Path=B.getImg_path_vertical();
                
 	         }else
 	         {
-	        	 img_Path=B.getImg_path();
-	        	 label=new JLabel();
+	         	Iwidth=(int)B.getSize()*(BackGround_Grid.getWidth()/22);
+	         	IHeight=(int)(BackGround_Grid.getHeight()/11);
+				 img_Path=B.getImg_path_horizontal();
+
 	         }
 	         
 	         label.setBounds(positionx,positiony,Iwidth,IHeight);
-	         label.setIcon(SetImageSize(B.getImg_path(),label ));
+	         label.setIcon(SetImageSize(img_Path,label ));
 	         return label;
 	     }  
 	     

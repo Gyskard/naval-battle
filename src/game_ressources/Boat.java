@@ -14,11 +14,8 @@ public class Boat {
 	
 	private int direction;
 	
-
-
-	
 	public Boat(int size, String title, String img_path_vertical, String img_path_horizontal,
-			String img_path_vertical_destroyed, String img_path_horizontal_destroyed, int direction) {
+			String img_path_vertical_destroyed, String img_path_horizontal_destroyed) {
 		super();
 		this.healthPoint = size;
 		this.size = size;
@@ -27,7 +24,6 @@ public class Boat {
 		this.img_path_horizontal = img_path_horizontal;
 		this.img_path_vertical_destroyed = img_path_vertical_destroyed;
 		this.img_path_horizontal_destroyed = img_path_horizontal_destroyed;
-		this.direction = direction;
 		this.state=true;
 	}
 
@@ -39,12 +35,6 @@ public class Boat {
 		this.direction = direction;
 	}
 
-	public String getImg_path() {
-		return img_path;
-	}
-	public void setImg_path(String img_path) {
-		this.img_path = img_path;
-	}
 	public int getHealthPoint() {
 		return healthPoint;
 	}
@@ -69,6 +59,37 @@ public class Boat {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	
+
+
+	public String getImg_path_vertical() {
+		return img_path_vertical;
+	}
+
+	public void setImg_path_vertical(String img_path_vertical) {
+		this.img_path_vertical = img_path_vertical;
+	}
+
+	public String getImg_path_horizontal() {
+		return img_path_horizontal;
+	}
+
+	public void setImg_path_horizontal(String img_path_horizontal) {
+		this.img_path_horizontal = img_path_horizontal;
+	}
+
+	public String getImg_path_vertical_destroyed() {
+		return img_path_vertical_destroyed;
+	}
+
+	public void setImg_path_vertical_destroyed(String img_path_vertical_destroyed) {
+		this.img_path_vertical_destroyed = img_path_vertical_destroyed;
+	}
+
+	public String getImg_path_horizontal_destroyed() {
+		return img_path_horizontal_destroyed;
+	}
+
+	public void setImg_path_horizontal_destroyed(String img_path_horizontal_destroyed) {
+		this.img_path_horizontal_destroyed = img_path_horizontal_destroyed;
+	}
 }

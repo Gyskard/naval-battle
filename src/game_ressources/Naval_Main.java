@@ -1,28 +1,23 @@
 package game_ressources;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
 public class Naval_Main{
 
-	public static void main(String[] args)  throws IOException {
+	public static void main(String[] args) {
 		
-		SwingUtilities.invokeLater(new Runnable(){ 
-			public void run(){
-				Graphical_Naval_Menu Menu;
-				try {
-					Menu = new Graphical_Naval_Menu();
-					Menu.setVisible(true);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		SwingUtilities.invokeLater(() -> {
+			Graphical_Naval_Menu Menu;
+			try {
+				Menu = new Graphical_Naval_Menu();
+				Menu.setVisible(true);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} );
-		
+		});
 		
 		
 

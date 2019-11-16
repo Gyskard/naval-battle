@@ -1,27 +1,44 @@
 package game_ressources;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 
-
-public class Board_Cells extends Rectangle{
+public class Board_Cells extends JButton{
 	private int _posX;
 	private int _posY;
 	private int _width;
 	private int _height;
 	private boolean state;
+    private Graphic_Naval_Board myBoard;
 
 
 
-
-	public Board_Cells(int posX, int posY, int width, int height) {
+	public Board_Cells(int posX, int posY, int width, int height,Graphic_Naval_Board myBoard) {
 		super();
 		this._posX = posX;
 		this._posY = posY;
 		this._width = width;
 		this._height = height;
 		this.state = false;
+		this.myBoard=myBoard;
+		build();
+	}
+	private void build()
+	{
+		setBounds(_posX, _posY, _width, _height);
+		setBackground(Color.BLACK);
+		setVisible(false);
+	}
+
+	public Graphic_Naval_Board getMyBoard() {
+		return myBoard;
+	}
+
+	public void setMyBoard(Graphic_Naval_Board myBoard) {
+		this.myBoard = myBoard;
 	}
 
 	public int get_posX() {
@@ -58,5 +75,6 @@ public class Board_Cells extends Rectangle{
 
 	public boolean getState() {return state;}
 	public void setState(boolean state) {this.state = state;}
+
 	
 }

@@ -10,11 +10,6 @@ public class Naval_Main{
 
 	public static void main(String[] args)  throws IOException {
 		
-		//Get the size of the screen and make it scale
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int)(screenSize.getWidth()*0.3);
-		int height = (int)(screenSize.getHeight()*0.45);
-		
 		SwingUtilities.invokeLater(new Runnable(){ 
 			public void run(){
 				Graphical_Naval_Menu Menu;

@@ -6,20 +6,31 @@ public class Boat {
 	private int size;
 	private boolean state;
 	private String title;
-	private String img_path;
+	private String img_path_vertical;
+	private String img_path_horizontal;
+	private String img_path_vertical_destroyed;
+	private String img_path_horizontal_destroyed;
+	
+	
 	private int direction;
 	
 
 
-	public Boat(int size, String title,String img_path) {
+	
+	public Boat(int size, String title, String img_path_vertical, String img_path_horizontal,
+			String img_path_vertical_destroyed, String img_path_horizontal_destroyed, int direction) {
 		super();
-		this.img_path=img_path;
 		this.healthPoint = size;
 		this.size = size;
-		this.state = true;
 		this.title = title;
+		this.img_path_vertical = img_path_vertical;
+		this.img_path_horizontal = img_path_horizontal;
+		this.img_path_vertical_destroyed = img_path_vertical_destroyed;
+		this.img_path_horizontal_destroyed = img_path_horizontal_destroyed;
+		this.direction = direction;
+		this.state=true;
 	}
-	
+
 	public int getDirection() {
 		return direction;
 	}

@@ -1,10 +1,13 @@
 package game_ressources;
 
 import javax.imageio.ImageIO;
+
 import javax.swing.*;
 
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,7 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Graphic_Naval_Board extends JFrame {
+import java.awt.Graphics2D;
+public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 
 	 private int size; 
@@ -103,7 +107,7 @@ public class Graphic_Naval_Board extends JFrame {
 	         
 	         
 	         int Iwidth=(int)(BackGround_Grid.getWidth()/22);
-	         int IHeight=(int)(3*BackGround_Grid.getHeight()/11);
+	         int IHeight=(int)(5*BackGround_Grid.getHeight()/11);
 	         int positionx=2*BackGround_Grid.getWidth()/22;
 	         int positiony=2*BackGround_Grid.getHeight()/11;
 	         
@@ -111,25 +115,28 @@ public class Graphic_Naval_Board extends JFrame {
 	         label.setIcon(SetImageSize(img,label ));
 	         return label;
 	     }  
-	     public JLabel DisplayImage(String img,int posX,int posY,Boat B) {  
-	         JLabel label = new JLabel();  
+	     public JLabel DisplayImage(int posX,int posY,Boat B) {  
+	         JLabel label=null;
 	         
-	         
-	         int positionx = 0;
-	         int positiony = 0;
-	         int Iwidth=(int)myCells[posX][posY].getWidth();
-	         int IHeight=(int)myCells[posX][posY].getWidth();
+	         String img_Path;
+	         int positionx = myCells[posX][posY].get_posX();
+	         int positiony = myCells[posX][posY].get_posY();
+	         int Iwidth=(int)myCells[posX][posY].get_width();
+	         int IHeight=(int)myCells[posX][posY].get_height();
 	         
 	         if(B.getDirection()==0)
 	         {
-	        	 positionx =posX*BackGround_Grid.getWidth()/22;
+	       
+	        	 img_Path=B.getImg_path();
+               
 	         }else
 	         {
-	        	 positiony=posY*BackGround_Grid.getHeight()/11;
+	        	 img_Path=B.getImg_path();
+	        	 label=new JLabel();
 	         }
 	         
 	         label.setBounds(positionx,positiony,Iwidth,IHeight);
-	         label.setIcon(SetImageSize(img,label ));
+	         label.setIcon(SetImageSize(B.getImg_path(),label ));
 	         return label;
 	     }  
 	     
@@ -140,7 +147,9 @@ public class Graphic_Naval_Board extends JFrame {
 			 {
 				 for (int j=0 ; j<size;j++)
 				 {
-					 myCells[i][j]= new Board_Cells(i, j,(int)(BackGround_Grid.getWidth()/22) ,(int)(BackGround_Grid.getHeight()/11));
+					 myCells[i][j]= new Board_Cells(i, j,(int)(BackGround_Grid.getWidth()/22) ,(int)(BackGround_Grid.getHeight()/11),this);
+					 BackGround_Grid.add(myCells[i][j]);
+					 myCells[i][j].addActionListener(this);
 				 }
 			 }
 		 }
@@ -150,6 +159,19 @@ public class Graphic_Naval_Board extends JFrame {
 		 public Board_Cells getMyCell(int i, int j) { return myCells[i][j]; }
 
 		 public int getIntSize() { return size; }
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+	        Object source=e.getSource();
+	        if(source instanceof Board_Cells)
+	        {
+	        	Board_Cells myB= (Board_Cells)source;
+		        System.out.println(myB.get_posX() + "-" + myB.get_posY());
+
+	        }
+				
+			
+		}
 
 
 		

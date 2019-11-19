@@ -91,6 +91,7 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         Object source=e.getSource();
+        // Start a game
         if(source==butt1)
         {
         	
@@ -100,6 +101,7 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
     		dispose();
     	   //repain call the function paint by default but it's more usable than paint
         }
+        // Quit
         else if(source==butt2)
         {
         	dispose();

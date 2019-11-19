@@ -13,6 +13,7 @@ public class Board_Cells extends JButton{
 	private int _height;
 	private boolean state;
     private Graphic_Naval_Board myBoard;
+    private Boat boat;
 
 
 
@@ -76,7 +77,10 @@ public class Board_Cells extends JButton{
 	}
 
 	public boolean getState() {return state;}
+
 	public void setState(boolean state) {this.state = state;}
 
-	
+    public Boat getBoat() {return boat;}
+
+    public void setBoat(Boat boat) {this.boat = boat;}
 }

@@ -3,12 +3,16 @@ package game_ressources;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
 public class Board_Cells extends JButton{
 	private int _posX;
 	private int _posY;
+	private int i,j;
 	private int _width;
 	private int _height;
 	private boolean state;
@@ -20,8 +24,8 @@ public class Board_Cells extends JButton{
 
 	public Board_Cells(int posX, int posY, int width, int height, Graphic_Naval_Board myBoard) {
 		super();
-		System.out.println(myBoard.getWidth());
-		System.out.println(myBoard.getHeight());
+		//System.out.println(myBoard.getWidth());
+		//System.out.println(myBoard.getHeight());
 		this._posX = posX*(((myBoard.getWidth()-19)/22))+43;
 		this._posY = posY*(((myBoard.getHeight()-39)/11))+42;
 		this._width = (int)(width*0.9);
@@ -31,13 +35,26 @@ public class Board_Cells extends JButton{
 		this.myBoard=myBoard;
 		build();
 	}
+	public int getI() {
+		return i;
+	}
+	public void setI(int i) {
+		this.i = i;
+	}
+	public int getJ() {
+		return j;
+	}
+	public void setJ(int j) {
+		this.j = j;
+	}
 	private void build()
 	{
 		setBounds(_posX, _posY, _width, _height);
 		setOpaque(false);
-		setContentAreaFilled(true);
-		setBorderPainted(true);
+		setContentAreaFilled(false);
+		setBorderPainted(false);
 		setEnabled(true);
+
 	}
 
 	public Graphic_Naval_Board getMyBoard() {
@@ -90,9 +107,12 @@ public class Board_Cells extends JButton{
 
     public void destroy() {
 		isDestroyed = true;
-		setIcon(new ImageIcon("img/croix_rouge.png"));
-		if(boat != null) {
+		if(boat == null) {
+			setIcon(new ImageIcon("img/Blue_Cross.png"));
+		} else {
+			System.out.println("boat exists");
 			boat.decreaseHealthPoint();
+			setIcon(new ImageIcon("img/Red_Cross.png"));
 		}
 	}
 }

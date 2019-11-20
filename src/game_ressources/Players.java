@@ -18,14 +18,13 @@ public class Players {
 	
 	public Players(int size) {
 		super();
-		System.out.println("new player");
 		//A player has 5 boat at the begining
 		this.boatAlive = 5;
-		myBoats.add(new Boat(5,"Porte-avion","./img/Vertical_PorteAvion.png", "./img/Horizontal_PorteAvion.png", "./img/Vertical_Explosion_PorteAvion.png", "./img/Horizontal_Explosion_PorteAvion.png"));
-		myBoats.add(new Boat(4,"Croiseur","./img/Vertical_Croiseur.png", "./img/Horizontal_Croiseur.png", "./img/Vertical_Explosion_Croiseur.png", "./img/Horizontal_Explosion_Croiseur.png"));
-		myBoats.add(new Boat(3,"Contre-Torpilleur","./img/Vertical_ContreTorpilleur.png", "./img/Horizontal_ContreTorpilleur.png", "./img/Vertical_Explosion_ContreTorpilleur.png", "./img/Horizontal_Explosion_ContreTorpilleur.png"));
-		myBoats.add(new Boat(3,"Sous-Marin","./img/Vertical_SousMarin.png", "./img/Horizontal_SousMarin.png", "./img/Vertical_Explosion_SousMarin.png", "./img/Horizontal_Explosion_SousMarin.png"));
-		myBoats.add(new Boat(2,"Destroyer","./img/Vertical_Destroyer.png", "./img/Horizontal_Destroyer.png", "./img/Vertical_Explosion_Destroyer.png", "./img/Horizontal_Explosion_Destroyer.png"));
+		myBoats.add(new Boat(5,"Porte-avion",600,20,"./img/Vertical_PorteAvion.png", "./img/Horizontal_PorteAvion.png", "./img/Vertical_Explosion_PorteAvion.png", "./img/Horizontal_Explosion_PorteAvion.png"));
+		myBoats.add(new Boat(4,"Croiseur",600,70,"./img/Vertical_Croiseur.png", "./img/Horizontal_Croiseur.png", "./img/Vertical_Explosion_Croiseur.png", "./img/Horizontal_Explosion_Croiseur.png"));
+		myBoats.add(new Boat(3,"Contre-Torpilleur",600,120,"./img/Vertical_ContreTorpilleur.png", "./img/Horizontal_ContreTorpilleur.png", "./img/Vertical_Explosion_ContreTorpilleur.png", "./img/Horizontal_Explosion_ContreTorpilleur.png"));
+		myBoats.add(new Boat(3,"Sous-Marin",600,170,"./img/Vertical_SousMarin.png", "./img/Horizontal_SousMarin.png", "./img/Vertical_Explosion_SousMarin.png", "./img/Horizontal_Explosion_SousMarin.png"));
+		myBoats.add(new Boat(2,"Destroyer",600,220,"./img/Vertical_Destroyer.png", "./img/Horizontal_Destroyer.png", "./img/Vertical_Explosion_Destroyer.png", "./img/Horizontal_Explosion_Destroyer.png"));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = 957;
@@ -51,9 +50,7 @@ public class Players {
 	public List<Boat> getMyBoats() { return myBoats; }
 	public Graphic_Naval_Board getGameBoard() { return GameBoard; }
 	
-	public void displayGameBoard() {
-		GameBoard.setVisible(true);
-	}
+	public void displayGameBoard() {GameBoard.setVisible(true);}
 
 	public void destroyBoat(Boat boat) {
 		myBoats.remove(boat);

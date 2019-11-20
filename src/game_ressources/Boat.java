@@ -1,6 +1,8 @@
 package game_ressources;
 
-public class Boat {
+import javax.swing.JLabel;
+
+public class Boat extends JLabel{
 
 	private int healthPoint;
 	private int size;
@@ -10,21 +12,39 @@ public class Boat {
 	private String img_path_horizontal;
 	private String img_path_vertical_destroyed;
 	private String img_path_horizontal_destroyed;
+	private int direction;//0 for horizontal , 1 for vertical
+	private int coordXBase;
+	private int coordYBase;
 	
-	
-	private int direction;
-	
-	public Boat(int size, String title, String img_path_vertical, String img_path_horizontal,
+	public Boat(int size, String title,int coordX,int coordY, String img_path_vertical, String img_path_horizontal,
 			String img_path_vertical_destroyed, String img_path_horizontal_destroyed) {
 		super();
 		this.healthPoint = size;
 		this.size = size;
 		this.title = title;
+		this.coordXBase=coordX;
+		this.coordYBase=coordY;
 		this.img_path_vertical = img_path_vertical;
 		this.img_path_horizontal = img_path_horizontal;
 		this.img_path_vertical_destroyed = img_path_vertical_destroyed;
 		this.img_path_horizontal_destroyed = img_path_horizontal_destroyed;
 		this.state=true;
+	}
+	
+	public int getCoordXBase() {
+		return coordXBase;
+	}
+
+	public void setCoordXBase(int coordXBase) {
+		this.coordXBase = coordXBase;
+	}
+
+	public int getCoordYBase() {
+		return coordYBase;
+	}
+
+	public void setCoordYBase(int coordYBase) {
+		this.coordYBase = coordYBase;
 	}
 
 	public int getDirection() {
@@ -41,20 +61,19 @@ public class Boat {
 
 	//public void setHealthPoint(int healthPoint) { this.healthPoint = healthPoint; }
 	public void decreaseHealthPoint() {
-		if (healthPoint == 1) {
-
+		if (healthPoint <= 1) {
+            setState(false);
 		} else {
 			this.healthPoint = healthPoint -1;
 		}
 	}
-
-	public int getSize() {
+	public int getBoatSize() {
 		return size;
 	}
 	public void setSize(int size) {
 		this.size = size;
 	}
-	public boolean isState() {
+	public boolean getState() {
 		return state;
 	}
 	public void setState(boolean state) {

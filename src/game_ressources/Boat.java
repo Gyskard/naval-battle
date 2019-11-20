@@ -38,9 +38,16 @@ public class Boat {
 	public int getHealthPoint() {
 		return healthPoint;
 	}
-	public void setHealthPoint(int healthPoint) {
-		this.healthPoint = healthPoint;
+
+	//public void setHealthPoint(int healthPoint) { this.healthPoint = healthPoint; }
+	public void decreaseHealthPoint() {
+		if (healthPoint == 1) {
+
+		} else {
+			this.healthPoint = healthPoint -1;
+		}
 	}
+
 	public int getSize() {
 		return size;
 	}

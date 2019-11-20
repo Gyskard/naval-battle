@@ -7,14 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 =======
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLOutput;
->>>>>>> ddb29e6449ada40d7837f6481cb5b0bb3c2653ac
+>>>>>>> ddb29e6449ada40d7837f6481cb5b0bb3c2653ac*/
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -244,7 +244,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 			for(int i=0; i<5; i++) {
 			Boat boat = iter.next();
-				for(int j=0; j<boat.getSize(); j++) {
+				for(int j=0; j<boat.getBoatSize(); j++) {
 					myCells[j][i].setState(true);
 					myCells[j][i].setBoat(boat);
 				}

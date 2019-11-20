@@ -15,9 +15,12 @@ public class Boat extends JLabel{
 	private int direction;//0 for horizontal , 1 for vertical
 	private int coordXBase;
 	private int coordYBase;
+
+	//test
+    private Players player;
 	
 	public Boat(int size, String title,int coordX,int coordY, String img_path_vertical, String img_path_horizontal,
-			String img_path_vertical_destroyed, String img_path_horizontal_destroyed) {
+			String img_path_vertical_destroyed, String img_path_horizontal_destroyed, Players player) {
 		super();
 		this.healthPoint = size;
 		this.size = size;
@@ -29,6 +32,9 @@ public class Boat extends JLabel{
 		this.img_path_vertical_destroyed = img_path_vertical_destroyed;
 		this.img_path_horizontal_destroyed = img_path_horizontal_destroyed;
 		this.state=true;
+
+        //test
+        this.player= player;
 	}
 	
 	public int getCoordXBase() {
@@ -63,6 +69,7 @@ public class Boat extends JLabel{
 	public void decreaseHealthPoint() {
 		if (healthPoint <= 1) {
             setState(false);
+            player.decreaseBoatAlive();
 		} else {
 			this.healthPoint = healthPoint -1;
 		}

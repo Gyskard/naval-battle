@@ -17,7 +17,6 @@ public class Players {
 	
 	public Players(int size) {
 		super();
-		System.out.println("new player");
 		//A player has 5 boat at the begining
 		this.boatAlive = 5;
 		myBoats.add(new Boat(5,"Porte-avion","./img/Vertical_PorteAvion.png", "./img/Horizontal_PorteAvion.png", "./img/Vertical_Explosion_PorteAvion.png", "./img/Horizontal_Explosion_PorteAvion.png"));
@@ -45,9 +44,7 @@ public class Players {
 	public List<Boat> getMyBoats() { return myBoats; }
 	public Graphic_Naval_Board getGameBoard() { return GameBoard; }
 	
-	public void displayGameBoard() {
-		GameBoard.setVisible(true);
-	}
+	public void displayGameBoard() {GameBoard.setVisible(true);}
 
 	public void destroyBoat(Boat boat) {
 		myBoats.remove(boat);

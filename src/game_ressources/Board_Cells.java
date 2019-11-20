@@ -19,10 +19,12 @@ public class Board_Cells extends JButton{
 
 	public Board_Cells(int posX, int posY, int width, int height,Graphic_Naval_Board myBoard) {
 		super();
-		this._posX = posX*(myBoard.getWidth()/22);
-		this._posY = posY*(myBoard.getHeight()/11);
-		this._width = width;
-		this._height = height;
+		System.out.println(myBoard.getWidth());
+		System.out.println(myBoard.getHeight());
+		this._posX = posX*(((myBoard.getWidth()-19)/22))+43;
+		this._posY = posY*(((myBoard.getHeight()-39)/11))+42;
+		this._width = (int)(width*0.9);
+		this._height = (int)(height*0.9);
 		this.state = false;
 		this.myBoard=myBoard;
 		build();
@@ -31,8 +33,8 @@ public class Board_Cells extends JButton{
 	{
 		setBounds(_posX, _posY, _width, _height);
 		setOpaque(false);
-		setContentAreaFilled(false);
-		setBorderPainted(false);
+		setContentAreaFilled(true);
+		setBorderPainted(true);
 		setEnabled(true);
 	}
 

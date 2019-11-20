@@ -60,17 +60,20 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 			//int height = (int)(this.height*0.6);
 
 			setSize(this.width,this.height);
-			BackGround_Grid.setBounds(0,0, width, height);
+			BackGround_Grid.setBounds(0,0, width-20, height-40);
 
 	    	ImageIcon GridImg=SetImageSize("./img/oceangrid_starter_boat.png", BackGround_Grid);
 	    	BackGround_Grid.setIcon(GridImg);
 
 	    	initMyCells();
 			
+	    	int displayX=600,displayY=20;
+	    	
 	    	for (Boat B : myBoats)
 	    	{
-	    		B.setDirection(0);
-	    		myImage.add(DisplayImage(2,2,B));
+	    		B.setDirection(1);
+	    		myImage.add(InitialDisplayImage(displayX,displayY,B));
+	    		displayY+=50;
 	    	}
 	    	for(JLabel I : myImage)
 	    	{	    		 
@@ -102,7 +105,20 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	    	 
 	    	 return newImc;
 	     }
-	     
+	     public JLabel InitialDisplayImage(int posX,int posY,Boat B) {  
+	         JLabel label=new JLabel();
+	         
+	         String img_Path;
+	         int Iwidth=B.getSize() *(BackGround_Grid.getWidth()/22);
+	         int IHeight= BackGround_Grid.getHeight()/11;
+			 img_Path=B.getImg_path_horizontal();
+
+	         
+	         
+	         label.setBounds(posX,posY,Iwidth,IHeight);
+	         label.setIcon(SetImageSize(img_Path,label ));
+	         return label;
+	     }  
 
 	     public JLabel DisplayImage(int posX,int posY,Boat B) {  
 	         JLabel label=new JLabel();
@@ -141,6 +157,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 					 myCells[i][j].addActionListener(this);
 				 }
 			 }
+			 
 		 }
 
 
@@ -194,6 +211,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 				for(int i=0; i<boat.getSize(); i++){
 					myCells[posX + i*dirX][posY + i*dirY].setState(true);
 					myCells[posX + i*dirX][posY + i*dirY].setBoat(boat);
+					
 				}
 			}
 		}

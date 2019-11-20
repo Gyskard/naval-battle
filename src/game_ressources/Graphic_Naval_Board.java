@@ -1,6 +1,5 @@
 package game_ressources;
 
-import javax.imageio.ImageIO;
 
 import javax.swing.*;
 
@@ -8,10 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,9 +20,13 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	 private int height; 
 	 private Board_Cells[][] myCells;
 	 private Players myPlayer;
-	 
+	 private boolean isInitialDisplay;
 	 private JLabel BackGround_Grid;
-	  
+	 private JRadioButton vertical; 
+	 private JRadioButton horizontal; 
+	 private ButtonGroup  G1;
+	 int InitialBoatToPlace;
+     
 	     public Graphic_Naval_Board(int size, int width, int height,Players myPlayer) throws HeadlessException {
 			super();
 			//Initiate 
@@ -36,9 +35,15 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 			this.height = height;
 			myCells = new Board_Cells[size][size];
 			this.myPlayer=myPlayer;
+			this.isInitialDisplay=true;
+			InitialBoatToPlace=0;
 			build();
 	     }
-
+	     public Graphic_Naval_Board(int size, int width, int height,Players myPlayer,boolean initialDisplay) throws HeadlessException {
+			this(size,width,height,myPlayer);
+			this.isInitialDisplay=initialDisplay;
+	     }
+	     
 	     private void build() 
 	     {
 	        setSize(width, height);
@@ -47,55 +52,65 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	        setContentPane(buildContentPanel());
 	        setVisible(true);
 	     }
-	    
-	     private JPanel buildContentPanel()
+
+
+		private JPanel buildContentPanel()
 	     {
 	    	List<Boat> myBoats = myPlayer.getMyBoats();
 	    	List<JLabel> myImage = new ArrayList<JLabel>();
+	   	    vertical=new JRadioButton(); 
+	   	    horizontal=new JRadioButton(); 
+	        // Initialization of object of "ButtonGroup" class. 
+	   	    G1 = new ButtonGroup(); 
+	        
 	    	BackGround_Grid =new JLabel();
 	    	JPanel panel= new JPanel();
-
-			//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			//int width = (int)(this.width*0.97);
-			//int height = (int)(this.height*0.6);
 
 			setSize(this.width,this.height);
 			BackGround_Grid.setBounds(0,0, width-20, height-40);
 
 	    	ImageIcon GridImg=SetImageSize("./img/oceangrid_starter_boat.png", BackGround_Grid);
 	    	BackGround_Grid.setIcon(GridImg);
+	    	
+	    	vertical.setText("Verticale");
+	    	horizontal.setText("horizontale");
+	    	vertical.setSelected(true);
+	    	
+	    	// Setting Bounds of "jRadioButton2". 
+	    	vertical.setBounds(600, 350, 120, 50); 
+	        
+	     // Setting Bounds of "jRadioButton2". 
+	    	horizontal.setBounds(600, 300, 120, 50); 
+
+	    		
 
 	    	initMyCells();
-			
-	    	int displayX=600,displayY=20;
+				    	
 	    	
 	    	for (Boat B : myBoats)
 	    	{
+	    		
 	    		B.setDirection(1);
-	    		myImage.add(InitialDisplayImage(displayX,displayY,B));
-	    		displayY+=50;
+	    		myImage.add(InitialDisplayImage(B.getCoordXBase(),B.getCoordYBase(),B));
 	    	}
 	    	for(JLabel I : myImage)
 	    	{	    		 
 	    		 BackGround_Grid.add(I);
 	    		 
 	    	}
+	    	BackGround_Grid.add(vertical);
+	    	BackGround_Grid.add(horizontal);
 
 	       panel.add(BackGround_Grid);
 	        
+	    	G1.add(vertical);
+	    	G1.add(horizontal);
+
+	    	
 	        return  panel;
 	        
 		 }
-	     ///To Test
-	     //
-	     public void DisplayBoatAtPosition(JLabel LabelBackGround,Boat myBoat,int posX,int posY)
-	     {
-	    	 
-	    	 //LabelBackGround.add(DisplayImage(myBoat.getImg_path()));
-	    	 
-	    	 
-	     }
-	     //
+
 	     public ImageIcon SetImageSize(String path,JLabel myLabeltoScale)
 	     {
 	    	 ImageIcon icon =new ImageIcon(path);
@@ -106,18 +121,17 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	    	 return newImc;
 	     }
 	     public JLabel InitialDisplayImage(int posX,int posY,Boat B) {  
-	         JLabel label=new JLabel();
 	         
 	         String img_Path;
-	         int Iwidth=B.getSize() *(BackGround_Grid.getWidth()/22);
+	         int Iwidth=B.getBoatSize() *(BackGround_Grid.getWidth()/22);
 	         int IHeight= BackGround_Grid.getHeight()/11;
 			 img_Path=B.getImg_path_horizontal();
 
 	         
-	         
-	         label.setBounds(posX,posY,Iwidth,IHeight);
-	         label.setIcon(SetImageSize(img_Path,label ));
-	         return label;
+	       
+	         B.setBounds(posX,posY,Iwidth,IHeight);
+	         B.setIcon(SetImageSize(img_Path,B ));
+	         return B;
 	     }  
 
 	     public JLabel DisplayImage(int posX,int posY,Boat B) {  
@@ -127,7 +141,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	         int positionx = myCells[posX][posY].get_posX();
 	         int positiony = myCells[posX][posY].get_posY();
 	         int Iwidth= myCells[posX][posY].get_width();
-	         int IHeight= B.getSize() *myCells[posX][posY].get_height();
+	         int IHeight= B.getBoatSize() *myCells[posX][posY].get_height();
 	         
 	         if(B.getDirection()==0)
 	         {
@@ -136,7 +150,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
                
 	         }else
 	         {
-	         	Iwidth= B.getSize() *(BackGround_Grid.getWidth()/22);
+	         	Iwidth= B.getBoatSize() *(BackGround_Grid.getWidth()/22);
 	         	IHeight= BackGround_Grid.getHeight()/11;
 				 img_Path=B.getImg_path_horizontal();
 
@@ -172,7 +186,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 			// Iterator on each player's boats
 			while (iter.hasNext()) {
 				Boat boat = iter.next();
-				int boatSize = boat.getSize();
+				int boatSize = boat.getBoatSize();
 				int posX, posY;
 				int dirX, dirY;
 
@@ -208,7 +222,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 				} while(!spaceAvailable);
 
-				for(int i=0; i<boat.getSize(); i++){
+				for(int i=0; i<boat.getBoatSize(); i++){
 					myCells[posX + i*dirX][posY + i*dirY].setState(true);
 					myCells[posX + i*dirX][posY + i*dirY].setBoat(boat);
 					
@@ -226,14 +240,63 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	        if(source instanceof Board_Cells)
 	        {
 	        	Board_Cells myB= (Board_Cells)source;
-		        System.out.println(myB.get_posX() + "-" + myB.get_posY());
+		        	
+		        	if(isInitialDisplay)
+		        	{
+		        		if(vertical.isSelected())
+		        		{
+		        			if((myB.getJ()+myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1)<10 && (myB.getJ()-myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1) >0)
+		        			{
+		        				myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
+				        		myB.getBoat().setDirection(1);
+				        		
+				        		for(int j=1;j<myB.getBoat().getBoatSize();j++)
+		    		        	{
+		    		        		myB.getMyBoard().getMyCell(myB.getI(),j+ myB.getJ()).setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));;
+		    		        	}
+		    		        	myPlayer.getMyBoats().get(InitialBoatToPlace).setLocation(myB.get_posX(),myB.get_posY());
+		    		        	InitialBoatToPlace++;
+		        			}
+		        		}else
+		        		{
+		        			if((myB.getI()+myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1)<10 && (myB.getI()-myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1)>0)
+		        			{
+		        				myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
+		        				myB.getBoat().setDirection(0);
+		    		        	//this.BackGround_Grid.add(DisplayImage(myB.getI(),myB.getJ(), myB.getBoat()));
+		    		        	for(int i=0;i<myB.getBoat().getBoatSize();i++)
+		    		        	{
+		    		        		myB.getMyBoard().getMyCell(i+myB.getI(),myB.getJ()).setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));;
+		    		        	}
+		    		        	myPlayer.getMyBoats().get(InitialBoatToPlace).setLocation(myB.get_posX(),myB.get_posY());
 
-	        }
-				
+		    		        	InitialBoatToPlace++;
+		    		        	
+		    		        	
+		        			}
+		        		}
+	        		}else
+	        		{
+
+	        		}
+	        		if(InitialBoatToPlace==5)
+	        		{
+	        			isInitialDisplay=false;
+	        		}
+			        System.out.println(myB.getI()+myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1);
+
+			        System.out.println(myB.getJ()+myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1);
+	        	}else
+	        	{
+	        		
+	        	}
 			
 		}
 
+		
+		
 
+	    
 		
 
 }

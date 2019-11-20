@@ -61,8 +61,8 @@ public class Boat extends JLabel{
 
 	//public void setHealthPoint(int healthPoint) { this.healthPoint = healthPoint; }
 	public void decreaseHealthPoint() {
-		if (healthPoint == 1) {
-
+		if (healthPoint <= 1) {
+            setState(false);
 		} else {
 			this.healthPoint = healthPoint -1;
 		}
@@ -73,7 +73,7 @@ public class Boat extends JLabel{
 	public void setSize(int size) {
 		this.size = size;
 	}
-	public boolean isState() {
+	public boolean getState() {
 		return state;
 	}
 	public void setState(boolean state) {

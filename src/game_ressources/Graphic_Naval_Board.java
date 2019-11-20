@@ -37,7 +37,6 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
      
 	     public Graphic_Naval_Board(int size, int width, int height,Players myPlayer) throws HeadlessException {
 			super();
-			 System.out.println("New board");
 			//Initiate 
 			this.size = size;
 			this.width = width;
@@ -173,7 +172,6 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	     
 	     
 		 private void initMyCells() {
-			 System.out.println("Init cells");
 			 for (int i=0 ; i<size;i++) {
 				 for (int j=0 ; j<size;j++) {
 					 myCells[i][j]= new Board_Cells(i, j, BackGround_Grid.getWidth()/22, BackGround_Grid.getHeight()/11,this);
@@ -240,8 +238,21 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 			}
 		}
 
+		// Place boats horizontally from the upper left corner from the taller to the smaller
+		public void testBoatPositioning() {
+			Iterator<Boat> iter = myPlayer.getMyBoats().iterator();
 
-		 public int getIntSize() { return size; }
+			for(int i=0; i<5; i++) {
+			Boat boat = iter.next();
+				for(int j=0; j<boat.getSize(); j++) {
+					myCells[j][i].setState(true);
+					myCells[j][i].setBoat(boat);
+				}
+			}
+		}
+
+
+		public int getIntSize() { return size; }
 
 		@Override
 		public void actionPerformed(ActionEvent e) {

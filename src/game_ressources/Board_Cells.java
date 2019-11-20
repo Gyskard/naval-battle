@@ -105,7 +105,7 @@ public class Board_Cells extends JButton{
 
     public void setBoat(Boat boat) {this.boat = boat;}
 
-    public void destroy(Players player) {
+    public void destroy() {
 		isDestroyed = true;
 		if(boat == null) {
 			setIcon(new ImageIcon("img/Blue_Cross.png"));

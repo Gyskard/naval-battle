@@ -7,6 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
+=======
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLOutput;
+>>>>>>> ddb29e6449ada40d7837f6481cb5b0bb3c2653ac
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +37,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
      
 	     public Graphic_Naval_Board(int size, int width, int height,Players myPlayer) throws HeadlessException {
 			super();
+			 System.out.println("New board");
 			//Initiate 
 			this.size = size;
 			this.width = width;
@@ -164,6 +173,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	     
 	     
 		 private void initMyCells() {
+			 System.out.println("Init cells");
 			 for (int i=0 ; i<size;i++) {
 				 for (int j=0 ; j<size;j++) {
 					 myCells[i][j]= new Board_Cells(i, j, BackGround_Grid.getWidth()/22, BackGround_Grid.getHeight()/11,this);

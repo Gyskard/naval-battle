@@ -17,6 +17,7 @@ public class Players {
 	
 	public Players(int size) {
 		super();
+		System.out.println("new player");
 		//A player has 5 boat at the begining
 		this.boatAlive = 5;
 		myBoats.add(new Boat(5,"Porte-avion",600,20,"./img/Vertical_PorteAvion.png", "./img/Horizontal_PorteAvion.png", "./img/Vertical_Explosion_PorteAvion.png", "./img/Horizontal_Explosion_PorteAvion.png"));
@@ -29,11 +30,13 @@ public class Players {
 		int width = 957;
 		int height = 468;
 		Players me = this;
+		/* test */
+		GameBoard = new Graphic_Naval_Board(size,width,height,me);
 		
 		SwingUtilities.invokeLater(new Runnable(){ 
 			public void run() {
 				Graphic_Naval_Board Menu;
-				GameBoard = new Graphic_Naval_Board(size,width,height,me);
+				//GameBoard = new Graphic_Naval_Board(size,width,height,me);
 				GameBoard.setVisible(true);
 			}
 		} );
@@ -44,6 +47,10 @@ public class Players {
 	
 	public void displayGameBoard() {
 		GameBoard.setVisible(true);
+	}
+
+	public void destroyBoat(Boat boat) {
+		myBoats.remove(boat);
 	}
 
 }

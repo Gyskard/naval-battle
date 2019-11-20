@@ -7,7 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 public class Board_Cells extends JButton{
 	private int _posX;
@@ -16,12 +16,13 @@ public class Board_Cells extends JButton{
 	private int _width;
 	private int _height;
 	private boolean state;
+	private boolean isDestroyed;
     private Graphic_Naval_Board myBoard;
     private Boat boat;
 
 
 
-	public Board_Cells(int posX, int posY, int width, int height,Graphic_Naval_Board myBoard) {
+	public Board_Cells(int posX, int posY, int width, int height, Graphic_Naval_Board myBoard) {
 		super();
 		this.i=posX;
 		this.j=posY;
@@ -30,6 +31,7 @@ public class Board_Cells extends JButton{
 		this._width = (int)(width*0.9);
 		this._height = (int)(height*0.9);
 		this.state = false;
+		this.isDestroyed = false;
 		this.myBoard=myBoard;
 		build();
 	}
@@ -102,7 +104,12 @@ public class Board_Cells extends JButton{
     public Boat getBoat() {return boat;}
 
     public void setBoat(Boat boat) {this.boat = boat;}
-    
 
-
+    public void destroy() {
+		isDestroyed = true;
+		setIcon(new ImageIcon("img/croix_rouge.png"));
+		if(boat != null) {
+			boat.decreaseHealthPoint();
+		}
+	}
 }

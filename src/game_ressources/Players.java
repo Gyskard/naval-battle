@@ -14,6 +14,7 @@ public class Players {
 	protected int boatAlive;
 	protected List<Boat> myBoats = new ArrayList<Boat>();
 	protected Graphic_Naval_Board GameBoard;
+	protected Players adversary;
 	
 	public Players(int size) {
 		super();
@@ -42,6 +43,11 @@ public class Players {
 		} );
 		
 	}
+	public void setAdversary(Players adv)
+	{
+		this.adversary=adv;
+	}
+
 	public List<Boat> getMyBoats() { return myBoats; }
 	public Graphic_Naval_Board getGameBoard() { return GameBoard; }
 	

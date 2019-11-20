@@ -84,7 +84,6 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
         cards.add(southPart, BorderLayout.SOUTH);
 
         return cards;
-
     }
 
     @Override
@@ -94,9 +93,9 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
         // Start a game
         if(source==butt1)
         {
-        	
-    		//Generate a 1000 x 1000 sized frame with 10 x 10 case in it
-    		Human_Player ThePlayer = new  Human_Player(10, textField.getText());
+
+            Game game = new Game(10, textField.getText());
+
     		//ThePlayer.GameBoard.repaint();
     		dispose();
     	   //repain call the function paint by default but it's more usable than paint

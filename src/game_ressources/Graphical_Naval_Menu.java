@@ -94,7 +94,8 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
         if(source==butt1)
         {
 
-            Game game = new Game(10, textField.getText());
+
+            Game game = new Game(textField.getText());
 
     		//ThePlayer.GameBoard.repaint();
     		dispose();

@@ -4,8 +4,8 @@ public class Human_Player extends Players {
 
 	private String pseudo = "Anonyme";
 
-	public Human_Player(int size, String pseudo) {
-		super(size);
+	public Human_Player(String pseudo) {
+		super();
 		this.pseudo = pseudo;
 		// TODO Auto-generated constructor stub
 	}
@@ -20,5 +20,17 @@ public class Human_Player extends Players {
 	public void setNumberOfMiss(int numberOfMiss) {
 		this.numberOfMiss = numberOfMiss;
 	}
-	
+
+	public void inscreaseN_OfMiss()
+	{
+		numberOfMiss++;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
 }

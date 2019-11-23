@@ -2,11 +2,17 @@ package game_ressources;
 
 class Game {
 
-    Game(int size, String pseudo) {
-        Human_Player ThePlayer = new Human_Player(size, pseudo);
-        IA_Player TheIA = new IA_Player(size, ThePlayer);
-        TheIA.getGameBoard().setVisible(false);
+    Game(String pseudo) {
+        Human_Player ThePlayer = new Human_Player(pseudo);
+        IA_Player TheIA = new IA_Player(ThePlayer);
+        ThePlayer.setAdversary(TheIA);
 
+        /*
+        while(ThePlayer.boatAlive!=0 || TheIA.boatAlive!=0 )
+        {
+
+        }
+
+         */
     }
-
 }

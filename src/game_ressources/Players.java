@@ -16,7 +16,7 @@ public class Players {
 	protected Graphic_Naval_Board GameBoard;
 	protected Players adversary;
 	
-	public Players(int size) {
+	public Players() {
 		super();
 		//A player has 5 boat at the begining
 		this.boatAlive = 5;
@@ -26,25 +26,19 @@ public class Players {
 		myBoats.add(new Boat(3,"Sous-Marin",600,170,"./img/Vertical_SousMarin.png", "./img/Horizontal_SousMarin.png", "./img/Vertical_Explosion_SousMarin.png", "./img/Horizontal_Explosion_SousMarin.png", this));
 		myBoats.add(new Boat(2,"Destroyer",600,220,"./img/Vertical_Destroyer.png", "./img/Horizontal_Destroyer.png", "./img/Vertical_Explosion_Destroyer.png", "./img/Horizontal_Explosion_Destroyer.png", this));
 		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = 957;
 		int height = 468;
 		Players me = this;
 		/* test */
-		GameBoard = new Graphic_Naval_Board(size,width,height,me);
-		
-		SwingUtilities.invokeLater(new Runnable(){ 
-			public void run() {
-				Graphic_Naval_Board Menu;
-				//GameBoard = new Graphic_Naval_Board(size,width,height,me);
-				GameBoard.setVisible(true);
-			}
-		} );
+		GameBoard = new Graphic_Naval_Board(width,height,me);
+
 		
 	}
 	public void setAdversary(Players adv)
 	{
+
 		this.adversary=adv;
+		adv.adversary=this;
 	}
 
 	public List<Boat> getMyBoats() { return myBoats; }

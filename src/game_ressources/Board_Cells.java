@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -107,10 +108,18 @@ public class Board_Cells extends JButton{
 
     public void setBoat(Boat boat) {this.boat = boat;}
 
-    public void destroy() {
+    public void destroy()  {
+		System.out.println(this.getMyBoard().getName());
 		isDestroyed = true;
 		if(boat == null) {
 			setIcon(new ImageIcon("img/Blue_Cross.png"));
+			if(myBoard.getMyPlayer() instanceof Human_Player)
+			{
+				Human_Player HP = (Human_Player)myBoard.getMyPlayer();
+
+				HP.inscreaseN_OfMiss();
+
+			}
 		} else {
 			System.out.println("boat exists");
 			boat.decreaseHealthPoint();

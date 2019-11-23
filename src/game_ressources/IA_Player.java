@@ -7,6 +7,9 @@ public class IA_Player extends Players {
 
 	public IA_Player(int size , Players adversary) {
 		super(size);
+        Graphic_Naval_Board adversaryBoard = adversary.getGameBoard();
+
+
 		/*
 
 		Graphic_Naval_Board adversaryBoard = adversary.getGameBoard();
@@ -20,7 +23,7 @@ public class IA_Player extends Players {
         tryToDestroy(adversaryBoard, xTested, yTested);
         displayCells(adversaryBoard);
 
-        */
+		 */
 	}
 
 	private boolean coordsHasBeenTested(List<Integer> xTested, List<Integer> yTested, int x, int y) {

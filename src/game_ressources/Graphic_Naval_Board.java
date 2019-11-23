@@ -7,21 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-/*<<<<<<< HEAD
-=======
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLOutput;
->>>>>>> ddb29e6449ada40d7837f6481cb5b0bb3c2653ac*/
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import java.awt.Graphics2D;
 public class Graphic_Naval_Board extends JFrame implements ActionListener{
-
 
 	 private int size; 
 	 private int width; 
@@ -35,25 +25,24 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	 private ButtonGroup  G1;
 	 int InitialBoatToPlace;
      
-	     public Graphic_Naval_Board(int size, int width, int height,Players myPlayer) throws HeadlessException {
+	     public Graphic_Naval_Board(int size, int width, int height, Players myPlayer) throws HeadlessException {
 			super();
-			//Initiate 
 			this.size = size;
 			this.width = width;
 			this.height = height;
 			myCells = new Board_Cells[size][size];
-			this.myPlayer=myPlayer;
-			this.isInitialDisplay=true;
-			InitialBoatToPlace=0;
+			this.myPlayer = myPlayer;
+			this.isInitialDisplay = true;
+			InitialBoatToPlace = 0;
 			build();
 	     }
-	     public Graphic_Naval_Board(int size, int width, int height,Players myPlayer,boolean initialDisplay) throws HeadlessException {
-			this(size,width,height,myPlayer);
-			this.isInitialDisplay=initialDisplay;
+
+	     public Graphic_Naval_Board(int size, int width, int height, Players myPlayer, boolean initialDisplay) throws HeadlessException {
+			this(size, width, height, myPlayer);
+			this.isInitialDisplay = initialDisplay;
 	     }
 	     
-	     private void build() 
-	     {
+	     private void build() {
 	        setSize(width, height);
 	        setTitle("Naval Board Game");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,9 +50,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	        setVisible(true);
 	     }
 
-
-		private JPanel buildContentPanel()
-	     {
+	     private JPanel buildContentPanel() {
 	    	List<Boat> myBoats = myPlayer.getMyBoats();
 	    	List<JLabel> myImage = new ArrayList<JLabel>();
 	   	    vertical=new JRadioButton(); 
@@ -119,7 +106,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	        
 		 }
 
-	     public ImageIcon SetImageSize(String path,JLabel myLabeltoScale)
+	     public ImageIcon SetImageSize(String path, JLabel myLabeltoScale)
 	     {
 	    	 ImageIcon icon =new ImageIcon(path);
 	    	 Image img=icon.getImage();
@@ -258,59 +245,66 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			
 	        Object source=e.getSource();
-	        if(source instanceof Board_Cells)
-	        {
-	        	Board_Cells myB= (Board_Cells)source;
-		        	
-		        	if(isInitialDisplay)
-		        	{
-		        		if(vertical.isSelected())
-		        		{
-		        			if((myB.getJ()+myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1)<10 && (myB.getJ()-myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1) >0)
-		        			{
-		        				myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
-				        		myB.getBoat().setDirection(1);
-				        		
-				        		for(int j=1;j<myB.getBoat().getBoatSize();j++)
-		    		        	{
-		    		        		myB.getMyBoard().getMyCell(myB.getI(),j+ myB.getJ()).setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));;
-		    		        	}
-		    		        	myPlayer.getMyBoats().get(InitialBoatToPlace).setLocation(myB.get_posX(),myB.get_posY());
-		    		        	InitialBoatToPlace++;
-		        			}
-		        		}else
-		        		{
-		        			if((myB.getI()+myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1)<10 && (myB.getI()-myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1)>0)
-		        			{
-		        				myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
-		        				myB.getBoat().setDirection(0);
-		    		        	//this.BackGround_Grid.add(DisplayImage(myB.getI(),myB.getJ(), myB.getBoat()));
-		    		        	for(int i=0;i<myB.getBoat().getBoatSize();i++)
-		    		        	{
-		    		        		myB.getMyBoard().getMyCell(i+myB.getI(),myB.getJ()).setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));;
-		    		        	}
-		    		        	myPlayer.getMyBoats().get(InitialBoatToPlace).setLocation(myB.get_posX(),myB.get_posY());
+	        if(source instanceof Board_Cells) {
+	        	Board_Cells myB = (Board_Cells) source;
 
-		    		        	InitialBoatToPlace++;
-		    		        	
-		    		        	
-		        			}
-		        		}
-	        		}else
-	        		{
+				System.out.println(horizontal.isSelected());
+				System.out.println(vertical.isSelected());
 
-	        		}
-	        		if(InitialBoatToPlace==5)
-	        		{
-	        			isInitialDisplay=false;
-	        		}
-			        System.out.println(myB.getI()+myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1);
+				if (isInitialDisplay) {
+					if (vertical.isSelected()) {
+						if ((myB.getJ() + myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize() - 1) < 10) {
 
-			        System.out.println(myB.getJ()+myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize()-1);
-	        	}else
-	        	{
-	        		
-	        	}
+							System.out.println("vertical");
+
+							myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
+							myB.getBoat().setDirection(1);
+
+							//System.out.println("vertical");
+							//System.out.println(myB.getI());
+							//System.out.println(myB.getJ());
+
+							for (int j = 1; j < myB.getBoat().getBoatSize(); j++) {
+								myB.getMyBoard().getMyCell(myB.getI(), j + myB.getJ()).setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
+							}
+							myPlayer.getMyBoats().get(InitialBoatToPlace).setLocation(myB.get_posX(), myB.get_posY());
+							InitialBoatToPlace++;
+						}
+					} else {
+
+						System.out.println("horizontal");
+
+						if ((myB.getI() + myPlayer.getMyBoats().get(InitialBoatToPlace).getBoatSize() - 1) < 10) {
+
+							myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
+							myB.getBoat().setDirection(0);
+							//this.BackGround_Grid.add(DisplayImage(myB.getI(),myB.getJ(), myB.getBoat()));
+
+							//System.out.println("horizontal");
+							//System.out.println(myB.getI());
+							//System.out.println(myB.getJ());
+
+							for (int i = 0; i < myB.getBoat().getBoatSize(); i++) {
+								myB.getMyBoard().getMyCell(i + myB.getI(), myB.getI()).setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
+
+							}
+
+							//SetImageSize(myB.getBoat().getImg_path_horizontal(), )
+
+							myPlayer.getMyBoats().get(InitialBoatToPlace).setLocation(myB.get_posX(), myB.get_posY());
+
+							InitialBoatToPlace++;
+
+
+						}
+					}
+				}else {
+
+				}
+				if (InitialBoatToPlace == 5) {
+					isInitialDisplay = false;
+				}
+			}
 			
 		}
 

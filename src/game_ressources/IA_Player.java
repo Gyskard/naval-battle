@@ -1,6 +1,5 @@
 package game_ressources;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -8,13 +7,12 @@ public class IA_Player extends Players {
 
 	public IA_Player(int size , Players adversary) {
 		super(size);
+		/*
 
 		Graphic_Naval_Board adversaryBoard = adversary.getGameBoard();
 
-        /* -- For test ---*/
         adversaryBoard.randomBoatPositioning();
         displayCells(adversaryBoard);
-        /* ---------------*/
 
         List<Integer> xTested = new ArrayList<Integer>();
         List<Integer> yTested = new ArrayList<Integer>();
@@ -22,6 +20,7 @@ public class IA_Player extends Players {
         tryToDestroy(adversaryBoard, xTested, yTested);
         displayCells(adversaryBoard);
 
+        */
 	}
 
 	private boolean coordsHasBeenTested(List<Integer> xTested, List<Integer> yTested, int x, int y) {

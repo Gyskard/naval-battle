@@ -33,6 +33,8 @@ public class Board_Cells extends JButton{
 		this.state = false;
 		this.isDestroyed = false;
 		this.myBoard=myBoard;
+		this.i = posX;
+		this.j = posY;
 		build();
 	}
 	public int getI() {

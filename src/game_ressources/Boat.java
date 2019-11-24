@@ -1,31 +1,26 @@
 package game_ressources;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class Boat extends JLabel{
 
 	private int healthPoint;
 	private int size;
 	private boolean state;
-	private String title;
 	private String img_path_vertical;
 	private String img_path_horizontal;
 	private String img_path_vertical_destroyed;
 	private String img_path_horizontal_destroyed;
-	private int direction;//0 for horizontal , 1 for vertical
+	private int direction; //0 for horizontal , 1 for vertical
 	private int coordXBase;
 	private int coordYBase;
-
-	//test
     private Players player;
 	
-	public Boat(int size, String title,int coordX,int coordY, String img_path_vertical, String img_path_horizontal,
-			String img_path_vertical_destroyed, String img_path_horizontal_destroyed, Players player) {
+	public Boat(int size, String title, int coordX, int coordY, String img_path_vertical, String img_path_horizontal, String img_path_vertical_destroyed, String img_path_horizontal_destroyed, Players player) {
+
 		super();
 		this.healthPoint = size;
 		this.size = size;
-		this.title = title;
 		this.coordXBase=coordX;
 		this.coordYBase=coordY;
 		this.img_path_vertical = img_path_vertical;
@@ -33,101 +28,86 @@ public class Boat extends JLabel{
 		this.img_path_vertical_destroyed = img_path_vertical_destroyed;
 		this.img_path_horizontal_destroyed = img_path_horizontal_destroyed;
 		this.state=true;
-
-        //test
         this.player= player;
+
 	}
 	
-	public int getCoordXBase() {
+	int getCoordXBase() {
 		return coordXBase;
 	}
 
-	public void setCoordXBase(int coordXBase) {
+	void setCoordXBase(int coordXBase) {
 		this.coordXBase = coordXBase;
 	}
 
-	public int getCoordYBase() {
+	int getCoordYBase() {
 		return coordYBase;
 	}
 
-	public void setCoordYBase(int coordYBase) {
+	void setCoordYBase(int coordYBase) {
 		this.coordYBase = coordYBase;
 	}
 
-	public int getDirection() {
+	int getDirection() {
 		return direction;
 	}
 
-	public void setDirection(int direction) {
+	void setDirection(int direction) {
 		this.direction = direction;
 	}
 
-	public int getHealthPoint() {
+	int getHealthPoint() {
 		return healthPoint;
 	}
 
-	public void decreaseHealthPoint() {
+	void decreaseHealthPoint() {
+
 		this.healthPoint --;
 
 		if (healthPoint == 0) {
-			setState(false);
+
+			setState();
 			player.decreaseBoatAlive();
-			if(player instanceof IA_Player)
-			{
+
+			if(player instanceof IA_Player) {
+
 				this.setVisible(true);
 				this.setEnabled(true);
 
-			}else
-			{
+			}
 
-				try{
-					player.getGameBoard().IADisplayImage(coordXBase,coordYBase,this);
-					this.setVisible(true);
-					this.setEnabled(true);
-				}
-				catch (IOException ex)
-				{
+			else {
 
-				}
+				player.getGameBoard().IADisplayImage(coordXBase,coordYBase,this);
+				this.setVisible(true);
+				this.setEnabled(true);
 
 			}
 		}
-
 	}
 
-	public int getBoatSize() {
+	int getBoatSize() {
 		return size;
 	}
-	public void setSize(int size) {
-		this.size = size;
-	}
-	public boolean getState() {
-		return state;
-	}
-	public void setState(boolean state) {
-		this.state = state;
-	}
-	public String getTitle() {
-		return title;
+
+	private void setState() {
+		this.state = false;
 	}
 
-
-	public String getImg_path_vertical() {
+	String getImg_path_vertical() {
 		return img_path_vertical;
 	}
 
 
-	public String getImg_path_horizontal() {
+	String getImg_path_horizontal() {
 		return img_path_horizontal;
 	}
 
-
-	public String getImg_path_vertical_destroyed() {
+	String getImg_path_vertical_destroyed() {
 		return img_path_vertical_destroyed;
 	}
 
-
-	public String getImg_path_horizontal_destroyed() {
+	String getImg_path_horizontal_destroyed() {
 		return img_path_horizontal_destroyed;
 	}
 

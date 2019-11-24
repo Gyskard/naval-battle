@@ -12,40 +12,40 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
     private JButton butt2;
     private JTextField textField;
 
-    Graphical_Naval_Menu() throws IOException {
+    Graphical_Naval_Menu() {
+
         super();
         build();
+
     }
 
-    private void build() throws IOException {
-        repaint();
+    private void build() {
 
+        repaint();
         setTitle("Naval battle game");
         setSize(500,400);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(buildContentPane());
+
     }
 
     private Container buildContentPane() {
 
-        //topPart
-        JPanel topPart = new JPanel();
+        JPanel topPart = new JPanel(); //topPart
 
         JLabel title = new JLabel("Naval Battle Game");
         title.setFont(new Font("Courier", Font.BOLD,40));
         topPart.add(title);
 
-        //firstCenterPart
-        JPanel firstCenterPart = new JPanel();
+        JPanel firstCenterPart = new JPanel(); //firstCenterPart
         textField = new JTextField("Anonyme", 20);
         textField.addActionListener(this);
 
         firstCenterPart.add(textField);
 
-        //secondCenterPart
-        JPanel secondCenterPart = new JPanel();
+        JPanel secondCenterPart = new JPanel();  //secondCenterPart
         butt1 = new JButton("Lancer une partie");
         butt1.addActionListener(this);
         secondCenterPart.add(butt1);
@@ -53,8 +53,7 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
         butt2.addActionListener(this);
         secondCenterPart.add(butt2);
 
-        //thirdCenterPart
-        JPanel thirdCenterPart = new JPanel();
+        JPanel thirdCenterPart = new JPanel(); //thirdCenterPart
         String[][] topScore = new Score().getTopScore(3);
         String htmlPart1 = "<p style=\"text-align:center; text-decoration: underline;\">Top 3</p>";
         String htmlPart2 = "<p style=\"text-align:center; font-size:0.85em;\">" + topScore[0][0] + " - " + topScore[0][1] + "</p>";
@@ -64,36 +63,32 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
         top.setFont(new Font("Courier", Font.BOLD,20));
         thirdCenterPart.add(top);
 
-        //centerPart
-        JPanel centerPart = new JPanel();
+        JPanel centerPart = new JPanel(); //centerPart
         centerPart.setLayout(new BoxLayout(centerPart, BoxLayout.Y_AXIS));
         centerPart.add(firstCenterPart);
         centerPart.add(secondCenterPart);
         centerPart.add(thirdCenterPart);
 
-        //southPart
-        JPanel southPart = new JPanel();
+        JPanel southPart = new JPanel();  //southPart
         JLabel credits = new JLabel("By Matthieu H, Nicolas F & Thomas M");
         credits.setFont(new Font("Courier", Font.PLAIN, 15));
         southPart.add(credits);
 
-        //assembledPart
-        JPanel cards = new JPanel(new BorderLayout());
+        JPanel cards = new JPanel(new BorderLayout()); //assembledPart
         cards.add(topPart, BorderLayout.NORTH);
         cards.add(centerPart, BorderLayout.CENTER);
         cards.add(southPart, BorderLayout.SOUTH);
 
         return cards;
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         Object source=e.getSource();
-        // Start a game
-        if(source==butt1)
-        {
 
+        if(source==butt1) { //Start a game
 
             try {
                 Game game = new Game(textField.getText());
@@ -101,16 +96,13 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
                 ex.printStackTrace();
             }
 
-            //ThePlayer.GameBoard.repaint();
     		dispose();
-    	   //repain call the function paint by default but it's more usable than paint
+
         }
-        // Quit
-        else if(source==butt2)
-        {
+
+        else if(source==butt2) { //Quit
         	dispose();
         	System.exit(0);
         }
-
     }
 }

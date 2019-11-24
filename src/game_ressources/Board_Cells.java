@@ -122,7 +122,6 @@ public class Board_Cells extends JButton{
 
 				}
 			} else {
-				System.out.println("boat exists");
 				boat.decreaseHealthPoint();
 				setIcon(new ImageIcon("img/Red_Cross.png"));
 			}

@@ -1,6 +1,7 @@
 package game_ressources;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,6 +17,7 @@ public class IA_Player extends Players {
     private boolean rightTest = false;
     private boolean topTest = false;
     private boolean bottomTest = false;
+
 
 	public IA_Player(Players adversary) throws IOException {
 		super();
@@ -41,11 +43,12 @@ public class IA_Player extends Players {
 
 	void tryToDestroy(Graphic_Naval_Board board, List<Integer> xTested, List<Integer> yTested)  {
 
+
+
         int x = 0;
         int y = 0;
 
         boolean attacked = false;
-
         if(!destruction && newDirection.equals("")) {
 
             leftTest = false;
@@ -74,6 +77,8 @@ public class IA_Player extends Players {
                 OriginalDestructionX = destructionX;
                 OriginalDestructionY = destructionY;
             }
+
+
         }
         else if(newDirection.equals("")) {
 
@@ -126,9 +131,7 @@ public class IA_Player extends Players {
             }
         }
         else {
-            System.out.println(newDirection);
-            System.out.println(OriginalDestructionX);
-            System.out.println(OriginalDestructionY);
+
             switch (newDirection) {
                 case "left":
                     if((destructionX - 1) >= 0 && !(coordsHasBeenTested(xTested, yTested, destructionX - 1, destructionY)) && !leftTest) {
@@ -221,8 +224,7 @@ public class IA_Player extends Players {
                     }
                     break;
                 case "up": {
-                    System.out.println(xTested);
-                    System.out.println(yTested);
+
                     if((destructionY + 1) <= 9 && !(coordsHasBeenTested(xTested, yTested, destructionX, destructionY + 1)) && !topTest) {
                         board.getMyCell(destructionX, destructionY + 1).destroy();
                         attacked = true;
@@ -268,5 +270,8 @@ public class IA_Player extends Players {
             }
             board.getMyCell(x,y).destroy();
         }
+
+
+
     }
 }

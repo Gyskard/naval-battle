@@ -44,9 +44,7 @@ public class Players {
 	public List<Boat> getMyBoats() { return myBoats; }
 	public Graphic_Naval_Board getGameBoard() { return GameBoard; }
 	
-	public void displayGameBoard() {GameBoard.setVisible(true);}
 
-	public int getBoatAlive() { return boatAlive; }
 	public void decreaseBoatAlive() { boatAlive -= 1; }
 
 }

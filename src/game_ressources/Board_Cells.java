@@ -25,8 +25,6 @@ public class Board_Cells extends JButton{
 
 	public Board_Cells(int posX, int posY, int width, int height, Graphic_Naval_Board myBoard) {
 		super();
-		//System.out.println(myBoard.getWidth());
-		//System.out.println(myBoard.getHeight());
 		this._posX = posX*(((myBoard.getWidth()-19)/22))+43;
 		this._posY = posY*(((myBoard.getHeight()-39)/11))+42;
 		this._width = (int)(width*0.9);
@@ -124,6 +122,7 @@ public class Board_Cells extends JButton{
 			} else {
 				boat.decreaseHealthPoint();
 				setIcon(new ImageIcon("img/Red_Cross.png"));
+
 			}
 		}
 

@@ -1,10 +1,7 @@
 package game_ressources;
 
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -469,10 +466,8 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 					if(myPlayer.adversary instanceof Human_Player)
 					{
 						Human_Player Winner=(Human_Player)myPlayer.adversary;
-						System.out.println(Winner.getPseudo());
 						Score score = new Score();
 						try {
-							System.out.println("enregistrement score");
 							score.setScore(Winner.getPseudo(),100-Winner.getNumberOfMiss());
 						} catch (IOException ex) {
 							ex.printStackTrace();

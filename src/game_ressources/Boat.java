@@ -1,10 +1,6 @@
 package game_ressources;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class Boat extends JLabel{
@@ -70,7 +66,6 @@ public class Boat extends JLabel{
 		return healthPoint;
 	}
 
-	//public void setHealthPoint(int healthPoint) { this.healthPoint = healthPoint; }
 	public void decreaseHealthPoint() {
 		this.healthPoint --;
 
@@ -81,10 +76,10 @@ public class Boat extends JLabel{
 			{
 				this.setVisible(true);
 				this.setEnabled(true);
+
 			}else
 			{
 
-				//this.setIcon(new ImageIcon(this.getImg_path_horizontal_destroyed()));
 				try{
 					player.getGameBoard().IADisplayImage(coordXBase,coordYBase,this);
 					this.setVisible(true);
@@ -115,40 +110,25 @@ public class Boat extends JLabel{
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
 
 
 	public String getImg_path_vertical() {
 		return img_path_vertical;
 	}
 
-	public void setImg_path_vertical(String img_path_vertical) {
-		this.img_path_vertical = img_path_vertical;
-	}
 
 	public String getImg_path_horizontal() {
 		return img_path_horizontal;
 	}
 
-	public void setImg_path_horizontal(String img_path_horizontal) {
-		this.img_path_horizontal = img_path_horizontal;
-	}
 
 	public String getImg_path_vertical_destroyed() {
 		return img_path_vertical_destroyed;
 	}
 
-	public void setImg_path_vertical_destroyed(String img_path_vertical_destroyed) {
-		this.img_path_vertical_destroyed = img_path_vertical_destroyed;
-	}
 
 	public String getImg_path_horizontal_destroyed() {
 		return img_path_horizontal_destroyed;
 	}
 
-	public void setImg_path_horizontal_destroyed(String img_path_horizontal_destroyed) {
-		this.img_path_horizontal_destroyed = img_path_horizontal_destroyed;
-	}
 }

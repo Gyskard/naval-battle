@@ -32,7 +32,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	List<Integer> xTested = new ArrayList<Integer>();
 	List<Integer> yTested = new ArrayList<Integer>();
 
-	 public Graphic_Naval_Board(int width, int height, Players myPlayer) throws HeadlessException {
+	 public Graphic_Naval_Board(int width, int height, Players myPlayer) throws HeadlessException, IOException {
 		super();
 		size=10;
 		this.width = width;
@@ -44,7 +44,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	 }
 
 
-	 private void build() {
+	 private void build() throws IOException {
 		 if (myPlayer instanceof IA_Player) {
 			 setTitle("Naval Board Game - IA");
 		 }
@@ -57,7 +57,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		 if (myPlayer instanceof IA_Player) {
 			this.setEnabled(false);
 			 this.setVisible(false);
-			 randomBoatPositioning();
+
 		 }
 		 else if (myPlayer instanceof Human_Player) {
 			 this.setEnabled(true);
@@ -66,7 +66,7 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 	 }
 
-	 private JPanel buildContentPanel() {
+	 private JPanel buildContentPanel() throws IOException {
 		List<Boat> myBoats = myPlayer.getMyBoats();
 		List<JLabel> myImage = new ArrayList<JLabel>();
 		vertical=new JRadioButton();
@@ -111,6 +111,23 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 			BackGround_Grid.add(vertical);
 			BackGround_Grid.add(horizontal);
+		}else
+		{
+			randomBoatPositioning();
+
+			for (Boat B : myBoats)
+			{
+
+				myImage.add(IADisplayImage(B.getCoordXBase(),B.getCoordYBase(),B));
+
+
+			}
+
+			for(JLabel I : myImage)
+			{
+				BackGround_Grid.add(I);
+
+			}
 		}
 
 		panel.add(BackGround_Grid);
@@ -146,32 +163,46 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		 return B;
 	 }
 
-	 public JLabel DisplayImage(int posX,int posY,Boat B) {
-		 JLabel label=new JLabel();
+	 public JLabel IADisplayImage(int posX,int posY,Boat B) throws IOException {
 
-		 String img_Path;
-		 int positionx = myCells[posX][posY].get_posX();
-		 int positiony = myCells[posX][posY].get_posY();
-		 int Iwidth= myCells[posX][posY].get_width();
-		 int IHeight= B.getBoatSize() *myCells[posX][posY].get_height();
+		String img_Path;
+		int Iwidth=B.getBoatSize() *(BackGround_Grid.getWidth()/22);
+		int IHeight= BackGround_Grid.getHeight()/11;
 
-		 if(B.getDirection()==0)
-		 {
+		if(B.getDirection()==1)
+		{
+			img_Path=B.getImg_path_horizontal_destroyed();
 
-			 img_Path=B.getImg_path_vertical();
+			B.setBounds(posX,posY,Iwidth,IHeight);
+			B.setIcon(SetImageSize(img_Path,B ));
+		}else // On IA gameboard
+		{
 
-		 }else
-		 {
-			Iwidth= B.getBoatSize() *(BackGround_Grid.getWidth()/22);
-			IHeight= BackGround_Grid.getHeight()/11;
-			 img_Path=B.getImg_path_horizontal();
+			 Iwidth=BackGround_Grid.getWidth()/22;
+			 IHeight= B.getBoatSize() *(BackGround_Grid.getHeight()/11);
+			try
+			{
+				BufferedImage bufferedImage = ImageIO.read(new File(B.getImg_path_vertical_destroyed()));
+				Graphics2D g = (Graphics2D) bufferedImage.getGraphics();
+				g.drawImage(bufferedImage, 0, 0, null);
+				B.setIcon(new ImageIcon(bufferedImage));
+				B.setLocation(posX, posY);
+				B.setSize(Iwidth, IHeight);
+				B.setIcon(SetImageSize(B.getImg_path_vertical_destroyed(), B));
 
-		 }
+			} catch (IOException  ex) {
 
-		 label.setBounds(positionx,positiony,Iwidth,IHeight);
-		 label.setIcon(SetImageSize(img_Path,label ));
-		 return label;
-	 }
+				 ex.printStackTrace();
+
+			 }
+
+		}
+		B.setVisible(false);
+		B.setEnabled(false);
+
+		return B;
+	}
+
 
 
 
@@ -244,6 +275,42 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 				myCells[posX + i*dirX][posY + i*dirY].setBoat(boat);
 
 			}
+			generateIA_Boat_direction();
+		}
+	}
+
+	public void generateIA_Boat_direction()
+	{
+		List<Boat> BoatTested = new ArrayList<Boat>();
+
+		for(int i=0;i<size;i++)
+		{
+			for(int j=0;j<size;j++){
+				if(myCells[i][j].getBoat()!=null && !BoatTested.contains(myCells[i][j].getBoat()))
+				{
+					Boat myBoat=myCells[i][j].getBoat();
+					myCells[i][j].getBoat().setCoordXBase(myCells[i][j].get_posX());
+					myCells[i][j].getBoat().setCoordYBase(myCells[i][j].get_posY());
+					if(i+1<size)
+					{
+						if(myCells[i+1][j].getBoat()==myBoat)
+						{
+							myBoat.setDirection(1);
+
+						}
+					}
+					if(j+1<size)
+					{
+						if(myCells[i][j+1].getBoat()==myBoat)
+						{
+							myBoat.setDirection(0);
+
+						}
+					}
+					BoatTested.add(myBoat);
+				}
+
+			}
 		}
 	}
 
@@ -300,9 +367,11 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 								if (!(boatPresence)) {
 
-									myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
-									myB.getBoat().setDirection(1);
 
+									myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
+									myB.getBoat().setDirection(0);
+									myB.getBoat().setCoordXBase(myB.get_posX());
+									myB.getBoat().setCoordYBase(myB.get_posY());
 									for (int j = 1; j < currentBoat.getBoatSize(); j++) {
 										myB.getMyBoard().getMyCell(myB.getI(), j + myB.getJ()).setBoat(currentBoat);
 									}
@@ -351,13 +420,15 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 								if (!(boatPresence)) {
 
+
 									myB.setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
-									myB.getBoat().setDirection(0);
-									System.out.println(currentBoat.getName());
+									myB.getBoat().setDirection(1);
+									myB.getBoat().setCoordXBase(myB.get_posX());
+									myB.getBoat().setCoordYBase(myB.get_posY());
+
 									for (int i = 1; i < myB.getBoat().getBoatSize(); i++) {
 										myB.getMyBoard().getMyCell(i + myB.getI(), myB.getJ()).setBoat(myPlayer.getMyBoats().get(InitialBoatToPlace));
 
-										System.out.println(myB.getMyBoard().getMyCell(i + myB.getI(), myB.getJ()));
 									}
 
 									myPlayer.getMyBoats().get(InitialBoatToPlace).setLocation(myB.get_posX(), myB.get_posY());
@@ -370,6 +441,10 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 				}
 				if(InitialBoatToPlace > 5) {
+					vertical.setVisible(false);
+					vertical.setEnabled(false);
+					horizontal.setEnabled(false);
+					horizontal.setVisible(false);
 
 					this.setVisible(true);
 					this.setEnabled(true);
@@ -380,20 +455,29 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 			}
 			else if (myPlayer instanceof IA_Player) {
+				boolean finished=false;
 				try {
 					myB.destroy();
-					TimeUnit.MILLISECONDS.sleep(500);
+					TimeUnit.MILLISECONDS.sleep(100);
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
-				if(!isAnyoneAlive())
+				if(!isAnyoneAlive() && !finished)
 				{
+					finished=true;
 					JOptionPane.showMessageDialog(null, "You WIN!!");
 					if(myPlayer.adversary instanceof Human_Player)
 					{
-						Human_Player Winner=(Human_Player)myPlayer;
-						Winner.getPseudo();
-						//100 - Winner.getNumberOfMiss();
+						Human_Player Winner=(Human_Player)myPlayer.adversary;
+						System.out.println(Winner.getPseudo());
+						Score score = new Score();
+						try {
+							System.out.println("enregistrement score");
+							score.setScore(Winner.getPseudo(),100-Winner.getNumberOfMiss());
+						} catch (IOException ex) {
+							ex.printStackTrace();
+						}
+
 						myPlayer.adversary.getGameBoard().dispose();
 						myPlayer.getGameBoard().dispose();
 					}
@@ -402,14 +486,15 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 				IA_Player Ia_toplay=(IA_Player)myPlayer;
 				Ia_toplay.tryToDestroy(myPlayer.adversary.getGameBoard(), xTested, yTested);
 				try {
-					TimeUnit.MILLISECONDS.sleep(500);
+					TimeUnit.MILLISECONDS.sleep(100);
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
-				if(!isAnyoneAlive())
+				if(!isAnyoneAlive() && !finished)
 				{
 					JOptionPane.showMessageDialog(null, "You LOSE!!");
-
+					myPlayer.adversary.getGameBoard().dispose();
+					myPlayer.getGameBoard().dispose();
 				}
 
 			}
@@ -419,17 +504,17 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	}
 	private boolean isAnyoneAlive()
 	{
+
+
 		boolean Bplayer=false;
 		boolean Badv=false;
-		for(int i=0;i<5;i++)
-		{
+		for(int i=0;i<5;i++) {
 			if(myPlayer.getMyBoats().get(i).getHealthPoint()>0)
 			{
 				Bplayer=true;
 			}
 		}
-		for(int i=0;i<5;i++)
-		{
+		for(int i=0;i<5;i++) {
 			if(myPlayer.adversary.getMyBoats().get(i).getHealthPoint()>0)
 			{
 				Badv= true;

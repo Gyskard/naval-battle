@@ -1,6 +1,11 @@
 package game_ressources;
 
-import javax.swing.JLabel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Boat extends JLabel{
 
@@ -67,13 +72,34 @@ public class Boat extends JLabel{
 
 	//public void setHealthPoint(int healthPoint) { this.healthPoint = healthPoint; }
 	public void decreaseHealthPoint() {
-		if (healthPoint <= 1) {
-            setState(false);
-            player.decreaseBoatAlive();
-		} else {
-			this.healthPoint = healthPoint -1;
+		this.healthPoint --;
+
+		if (healthPoint == 0) {
+			setState(false);
+			player.decreaseBoatAlive();
+			if(player instanceof IA_Player)
+			{
+				this.setVisible(true);
+				this.setEnabled(true);
+			}else
+			{
+
+				//this.setIcon(new ImageIcon(this.getImg_path_horizontal_destroyed()));
+				try{
+					player.getGameBoard().IADisplayImage(coordXBase,coordYBase,this);
+					this.setVisible(true);
+					this.setEnabled(true);
+				}
+				catch (IOException ex)
+				{
+
+				}
+
+			}
 		}
+
 	}
+
 	public int getBoatSize() {
 		return size;
 	}

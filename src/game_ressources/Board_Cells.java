@@ -109,21 +109,24 @@ public class Board_Cells extends JButton{
     public void setBoat(Boat boat) {this.boat = boat;}
 
     public void destroy()  {
-		System.out.println(this.getMyBoard().getName());
-		isDestroyed = true;
-		if(boat == null) {
-			setIcon(new ImageIcon("img/Blue_Cross.png"));
-			if(myBoard.getMyPlayer() instanceof Human_Player)
-			{
-				Human_Player HP = (Human_Player)myBoard.getMyPlayer();
+		if(!isDestroyed)
+		{
+			isDestroyed = true;
+			if(boat == null) {
+				setIcon(new ImageIcon("img/Blue_Cross.png"));
+				if(myBoard.getMyPlayer() instanceof Human_Player)
+				{
+					Human_Player HP = (Human_Player)myBoard.getMyPlayer();
 
-				HP.inscreaseN_OfMiss();
+					HP.inscreaseN_OfMiss();
 
+				}
+			} else {
+				System.out.println("boat exists");
+				boat.decreaseHealthPoint();
+				setIcon(new ImageIcon("img/Red_Cross.png"));
 			}
-		} else {
-			System.out.println("boat exists");
-			boat.decreaseHealthPoint();
-			setIcon(new ImageIcon("img/Red_Cross.png"));
 		}
+
 	}
 }

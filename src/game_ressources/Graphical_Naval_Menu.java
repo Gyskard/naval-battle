@@ -95,9 +95,13 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
         {
 
 
-            Game game = new Game(textField.getText());
+            try {
+                Game game = new Game(textField.getText());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-    		//ThePlayer.GameBoard.repaint();
+            //ThePlayer.GameBoard.repaint();
     		dispose();
     	   //repain call the function paint by default but it's more usable than paint
         }

@@ -1,10 +1,12 @@
 package game_ressources;
 
+import java.io.IOException;
+
 public class Human_Player extends Players {
 
 	private String pseudo = "Anonyme";
 
-	public Human_Player(String pseudo) {
+	public Human_Player(String pseudo) throws IOException {
 		super();
 		this.pseudo = pseudo;
 		// TODO Auto-generated constructor stub

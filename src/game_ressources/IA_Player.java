@@ -1,11 +1,12 @@
 package game_ressources;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IA_Player extends Players {
 
-	public IA_Player(Players adversary) {
+	public IA_Player(Players adversary) throws IOException {
 		super();
 
         Graphic_Naval_Board adversaryBoard = adversary.getGameBoard();

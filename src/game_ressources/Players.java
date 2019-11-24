@@ -16,7 +16,7 @@ public class Players {
 	protected Graphic_Naval_Board GameBoard;
 	protected Players adversary;
 	
-	public Players() {
+	public Players() throws IOException {
 		super();
 		//A player has 5 boat at the begining
 		this.boatAlive = 5;

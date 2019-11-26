@@ -6,12 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * Menu principal du jeu
+ */
+
 class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
     private JButton butt1;
     private JButton butt2;
     private JTextField textField;
 
+    /**
+     * Constructeur
+     */
     Graphical_Naval_Menu() {
 
         super();
@@ -19,6 +26,9 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Build de l'interface graphique
+     */
     private void build() {
 
         repaint();
@@ -31,6 +41,10 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Renvoi le contenu à afficher
+     * @return JPanel
+     */
     private Container buildContentPane() {
 
         JPanel topPart = new JPanel(); //topPart
@@ -83,12 +97,18 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Déclenche une action à la détection d'un clique sur un bouton
+     * 1) Lancement du jeu (butt1)
+     * 2) Fermeture du jeu (butt2)
+     * @param e Action déclenchée
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        Object source=e.getSource();
+        Object source = e.getSource();
 
-        if(source==butt1) { //Start a game
+        if(source == butt1) { //Start a game
 
             try {
                 Game game = new Game(textField.getText());
@@ -100,7 +120,7 @@ class Graphical_Naval_Menu extends JFrame implements ActionListener {
 
         }
 
-        else if(source==butt2) { //Quit
+        else if (source == butt2) {
         	dispose();
         	System.exit(0);
         }

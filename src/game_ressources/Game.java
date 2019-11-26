@@ -2,6 +2,10 @@ package game_ressources;
 
 import java.io.IOException;
 
+/**
+ * Créer un joueur et une IA, les définit comme ennemi.
+ */
+
 class Game {
 
     Game(String pseudo) throws IOException {

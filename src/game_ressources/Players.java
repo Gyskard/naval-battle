@@ -3,13 +3,19 @@ package game_ressources;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe des joueurs, comprenant le joueur (humain) et l'IA
+ */
 public class Players {
 
 	private int boatAlive;
 	private List<Boat> myBoats = new ArrayList<>();
 	private Graphic_Naval_Board GameBoard;
 	Players adversary;
-	
+
+	/**
+	 * Constructeur
+	 */
 	public Players() {
 
 		super();
@@ -26,6 +32,10 @@ public class Players {
 
 	}
 
+	/**
+	 * Détermine un adversaire
+	 * @param adv adversaire
+	 */
 	void setAdversary(Players adv) {
 
 		this.adversary=adv;
@@ -33,14 +43,25 @@ public class Players {
 
 	}
 
+	/**
+	 * Renvoi la liste des bateaux
+	 * @return List
+	 */
 	List<Boat> getMyBoats() {
 		return myBoats;
 	}
 
+	/**
+	 * Définit la grille de jeu du joueur
+	 * @return Graphical_Naval_Board
+	 */
 	Graphic_Naval_Board getGameBoard() {
 		return GameBoard;
 	}
 
+	/**
+	 * Réduit le nombre de bateau en vie
+	 */
 	void decreaseBoatAlive() {
 		boatAlive -= 1;
 	}

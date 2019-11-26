@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Classe de l'IA
+ */
 public class IA_Player extends Players {
 
     private boolean destruction = false;
@@ -17,13 +20,24 @@ public class IA_Player extends Players {
     private boolean topTest = false;
     private boolean bottomTest = false;
 
-
+    /**
+     * Constructeur
+     * @throws IOException exception
+     */
 	public IA_Player() throws IOException {
 
 		super();
 
 	}
 
+    /**
+     * Retourne vrai si la cellule a été déjà été touché par l'IA
+     * @param xTested coordonnées déjà testées en x
+     * @param yTested coordonnées déjà testées y
+     * @param x nouvelle coordonné en x
+     * @param y nouvelle cordonnée en y
+     * @return boolean
+     */
 	private boolean coordsHasBeenTested(List<Integer> xTested, List<Integer> yTested, int x, int y) {
 
 	    if(xTested.size() == 0 || yTested.size() == 0) {
@@ -44,6 +58,13 @@ public class IA_Player extends Players {
 
     }
 
+    /**
+     * Cherche et attaque une nouvelle cellule pour tenter de couler un bateau
+     * @param board grille
+     * @param xTested coordonnées déjà testées en x
+     * @param yTested coordonnées déjà testées en y
+     * @deprecated méthode non terminée, amélioration et optimisation nécessaire
+     */
 	void tryToDestroy(Graphic_Naval_Board board, List<Integer> xTested, List<Integer> yTested)  {
 
         int x = 0;

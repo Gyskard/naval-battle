@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Création, gestion et affichage de la fenêtre de jeu du joueur et de l'IA
+ */
+
 public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 	private int size;
@@ -28,7 +32,15 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 	private List<Integer> xTested = new ArrayList<>();
 	private List<Integer> yTested = new ArrayList<>();
 
-	 public Graphic_Naval_Board(int width, int height, Players myPlayer) throws HeadlessException {
+	/**
+	 *
+	 * @param width largeur de la fenêtre
+	 * @param height hauteur de la fenêtre
+	 * @param myPlayer joueur
+	 * @throws HeadlessException exception
+	 */
+
+	public Graphic_Naval_Board(int width, int height, Players myPlayer) throws HeadlessException {
 
 		super();
 
@@ -36,14 +48,17 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		this.height = height;
 		this.myPlayer = myPlayer;
 
-		size=10;
+		size = 10;
 		myCells = new Board_Cells[size][size];
 		InitialBoatToPlace = 0;
 
 		build();
 
-	 }
+	}
 
+	/**
+	 * Build de l'interface graphique
+	 */
 	private void build() {
 
 		if (myPlayer instanceof IA_Player) {
@@ -70,6 +85,10 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 	}
 
+	/**
+	 * Renvoi le contenu à afficher
+	 * @return JPanel
+	 */
 	private JPanel buildContentPanel() {
 
 		List<Boat> myBoats = myPlayer.getMyBoats();
@@ -136,6 +155,12 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 	}
 
+	/**
+	 * ?
+	 * @param path le chemin vers l'image
+	 * @param myLabeltoScale le label pour lequel on change la taille
+	 * @return ImageIcon
+	 */
 	 private ImageIcon SetImageSize(String path, JLabel myLabeltoScale) {
 
 		 ImageIcon icon = new ImageIcon(path);
@@ -145,6 +170,13 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 	 }
 
+	/**
+	 * Affichage de l'image d'un bateau du joueur au démarage de la partie
+	 * @param posX position en x
+	 * @param posY position en y
+	 * @param B objet boat
+	 * @return objet boat
+	 */
 	 private JLabel InitialDisplayImage(int posX, int posY, Boat B) {
 
 		 String img_Path;
@@ -159,6 +191,13 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 
 	 }
 
+	/**
+	 * Affichage de l'image d'un bateau de l'IA
+	 * @param posX position en x
+ 	 * @param posY position en y
+	 * @param B objet boat
+	 * @return objet boat
+	 */
 	 JLabel IADisplayImage(int posX, int posY, Boat B) {
 
 		String img_Path;
@@ -202,7 +241,10 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		return B;
 	 }
 
-	 private void initMyCells() {
+	/**
+	 * Initilisation des cellules de la grille de jeu
+	 */
+	private void initMyCells() {
 
 		 for (int i = 0 ; i < size; i++) {
 
@@ -216,14 +258,28 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		 }
 	 }
 
+
+	/**
+	 * Retourne le joueur
+	 * @return le joueur
+	 */
 	Players getMyPlayer() {
 	 	return myPlayer;
 	}
 
+	/**
+	 * Retourne une cellule
+	 * @param i position verticale
+	 * @param j position horizontale
+	 * @return cellules
+	 */
 	Board_Cells getMyCell(int i, int j) {
 		return myCells[i][j];
 	}
 
+	/**
+	 * Placement des bateaux de façon aléatoire pour l'IA
+	 */
 	private void randomBoatPositioning() { // Place the boats randomly
 
 		for (Boat boat : myPlayer.getMyBoats()) { // Iterator on each player's boats
@@ -286,6 +342,9 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		}
 	}
 
+	/**
+	 * Détéction de la direction des bateaux (verticale ou horizontale)  pour l'IA
+	 */
 	private void generateIA_Boat_direction()
 	{
 
@@ -326,6 +385,10 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		}
 	}
 
+	/**
+	 * Action en cas de détection d'un clique sur une cellule de la grille ou un bouton radio
+	 * @param e élement
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -506,6 +569,10 @@ public class Graphic_Naval_Board extends JFrame implements ActionListener{
 		}
 	}
 
+	/**
+	 * Retourne false si le joueur ou l'IA n'a plus aucun bateau
+	 * @return boolean
+	 */
 	private boolean isAnyoneAlive() {
 
 		boolean Bplayer = false;

@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Gestion du score des joueurs
+ */
 public class Score {
 
     private String scoreFile = "score.txt";
@@ -11,6 +15,14 @@ public class Score {
     //---INDICATES IF THE PLAYER'S SCORE IS GREATER THAN HIS PREVIOUS SCORE--
     //If the new score is higher than the recorded score or if he doesn't have an old score: return True.
     //If the new score is less than or equivalent to the recorded score : return False.
+
+    /**
+     * Inidique si le nouveau score est supérieur au score précédent
+     * @param pseudo Pseudo
+     * @param scorePseudo Nouveau score
+     * @param scores Anciens scores
+     * @return boolean
+     */
     private boolean isNewScore(String pseudo, int scorePseudo, String[][] scores) {
         boolean hasRecord = false;
         for(String[] lineInFile : scores) {
@@ -30,6 +42,12 @@ public class Score {
     }
 
     //---GET THE NUMBER OF LINE IN A FILE---
+
+    /**
+     * Renvoi le nombre de ligne du fichier des scores
+     * @param file Chemin du fichier
+     * @return int
+     */
     private int numberLineInFile(String file) {
         BufferedReader reader;
         int numberLine = 0;
@@ -48,6 +66,11 @@ public class Score {
 
     //---GET THE SCORE OF ALL PLAYERS---
     //Return a double array ([0] : nickname and [1] : score).
+
+    /**
+     * Retourne tous les scores enregistrés
+     * @return ableau 2D de string
+     */
     private String[][] getAllScores() {
         String[][] scores = new String[numberLineInFile(scoreFile)][2];
         BufferedReader reader;
@@ -69,6 +92,12 @@ public class Score {
     }
 
     //---GET THE PLAYER'S SCORE---
+
+    /**
+     * Renvoi le score pour un joueur
+     * @param pseudo pseudo
+     * @return int
+     */
     public int getScore(String pseudo) {
         BufferedReader reader;
         int result = 0;
@@ -93,7 +122,11 @@ public class Score {
         return result;
     }
 
-    //---GET THE PLAYER'S SCORE---
+    /**
+     * Renvoi le pseudo et le score du top X
+     * @param top le numéro du top recherché
+     * @return tableau 2D de String
+     */
     public String[][] getTopScore(int top) {
         String[][] topScore;
         String[][] scores = getAllScores();
@@ -121,6 +154,14 @@ public class Score {
     //---RECORD OF THE PLAYER'S NEW SCORE---
     //If the new score is higher than the recorded score : update the recorded score and return True.
     //If the new score is less than or equivalent to the recorded score : not update the recorded score and return False.
+
+    /**
+     * Définit le nouveau score
+     * @param pseudo String
+     * @param score int
+     * @return boolean
+     * @throws IOException exception pour l'écriture dans un fichier
+     */
     public boolean setScore(String pseudo, int score) throws IOException {
         //Recovering old scores
         String[][] scores = getAllScores();
